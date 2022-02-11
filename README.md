@@ -1,1 +1,1 @@
-# CSI4999
+# CSI4999: Stubbit Project
