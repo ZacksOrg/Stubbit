@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\mysite",
+    "\\static",
+    "\\static\\css",
+    "\\static\\images",
+    "\\stubbit",
+    "\\stubbit\\templates"
+  ],
+  "SelectedNode": "\\stubbit\\views.py",
+  "PreviewInSolutionExplorer": false
+}
