@@ -10,38 +10,6 @@
             font-family: "Lato", sans-serif;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        .row {
-            display: flex;
-            margin-left: -5px;
-            margin-right: -5px;
-        }
-
-        .column {
-            flex: 50%;
-            padding: 5px;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: 1px solid #000000;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 16px;
-            border: 1px solid #000000;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
         .sidebar {
             margin: 0;
             padding: 0;
@@ -104,58 +72,15 @@
 <body>
     <div class="sidebar">
         <a class="active" href="">Home</a>
-        <a href="">Profile</a>
+        <a href="profile">Profile</a>
         <a href="">Create Stub</a>
         <a href="">Settings</a>
-        <a href="">Sign Out</a>
+        <a href="login">Sign Out</a>
     </div>
     <div class="content">
         <h2>Welcome</h2>
         <img src="{% static 'images/StubbitImg.png' %}" alt="My image" style="width:100px;height:100px;">
-        <p>This is the Home Page</p><br />
-        <div class="row">
-            <div class="column">
-                <table>
-                    <caption><b>All Stubs</b></caption>
-                    <tr>
-                        <th>Stub Issuer</th>
-                        <th>Title</th>
-                        <th>Urgency</th>
-                        <th>Creation Date</th>
-                    </tr>
-
-                    {% for i in all_stubs %}
-                    <tr>
-                        <td>{{i.Issuer}}</td>
-                        <td>{{i.Title}}</td>
-                        <td>{{i.Urgency}}</td>
-                        <td>{{i.CreationDate}}</td>
-                        <td><a href="">View Stub</a>&nbsp</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            <div class="column">
-                <table>
-                    <caption><b>Users Created Stubs</b></caption>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Urgency</th>
-                        <th>Creation Date</th>
-                    </tr>
-                    {% for i in user_stubs %}
-                    <tr>
-                        <td>{{i.Title}}</td>
-                        <td>{{i.Category}}</td>
-                        <td>{{i.Urgency}}</td>
-                        <td>{{i.CreationDate}}</td>
-                        <td><a href="">View Stub</a>&nbsp</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
+        <p>This is the Home Page</p>
     </div>
 </body>
 </html>
