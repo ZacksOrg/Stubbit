@@ -96,3 +96,16 @@ class StubAttachment(models.Model):
     FileServerPath = models.CharField(max_length=255)
     def __str__(self):
         return "\nStub Attachment record with Primary Key = {PrimaryKey}\n--------------------------------------\nStubID: {StubID}\nTotalSize: {TotalSize}\nCompressedSize: {CompressedSize}\nFileServerPath: {FileServerPath}".format(PrimaryKey=self.pk, StubID=self.StubID.pk, TotalSize=self.TotalSize, CompressedSize=self.CompressedSize, FileServerPath=self.FileServerPath)
+ 
+# Create your models here.
+ 
+class tbl_Authentication(models.Model):
+    Empcode = models.IntegerField()
+    username = models.CharField(max_length=50,default='')
+    password = models.CharField(max_length=50,default='')
+    is_active = models.IntegerField(null=True)
+ 
+    def __str__(self):
+        return self.username
+ 
+    empAuth_objects = models.Manager()
