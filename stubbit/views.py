@@ -1,4 +1,3 @@
-from pyexpat.errors import messages
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate, logout
 from django.http import HttpResponse
@@ -7,7 +6,7 @@ from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
-from django.contrib.messages import *
+from django.contrib import messages
 
 def index(request):
     outputHTTP_string = ""
@@ -65,7 +64,7 @@ def signup(request):
         developer = request.POST['developer']
 #Database Username is a SQL Queries to see if it has been taken
         if username == "Database Username":
-            messages.error(request, "Username already taken")
+            messages.messages.error(request, "Username already taken")
         else:
             if password1 == password2:
 #All data needs to be taken and place into the Database here            
@@ -75,7 +74,6 @@ def signup(request):
                 messages.error(request, "Your passwords do not match!")
                 return redirect('/signup/')
     return render(request, 'signup.html')
-     
  
 def login(request):
      
@@ -91,4 +89,4 @@ def login(request):
         return render(request, 'login.html')
 
 def profile(request):
-    return render('profile.html')
+    return render(request, 'profile.html')
