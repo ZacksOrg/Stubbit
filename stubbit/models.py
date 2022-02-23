@@ -96,9 +96,8 @@ class StubAttachment(models.Model):
     FileServerPath = models.CharField(max_length=255)
     def __str__(self):
         return "\nStub Attachment record with Primary Key = {PrimaryKey}\n--------------------------------------\nStubID: {StubID}\nTotalSize: {TotalSize}\nCompressedSize: {CompressedSize}\nFileServerPath: {FileServerPath}".format(PrimaryKey=self.pk, StubID=self.StubID.pk, TotalSize=self.TotalSize, CompressedSize=self.CompressedSize, FileServerPath=self.FileServerPath)
- 
-# Create your models here.
- 
+
+#need to merge into rest of database 
 class tbl_Authentication(models.Model):
     Empcode = models.IntegerField()
     username = models.CharField(max_length=50,default='')
