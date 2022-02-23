@@ -2,32 +2,42 @@ from .models import *
 from django.utils import timezone
 
 class Backend:
-    def CreateTestLicense():
+    def CreateTestLicenses():
         newLicense = License(LicenseType="Trial", LicenseContent="7b14a00p")
         newLicense.save()
     
-    def CreateTestOrganization():
+    def CreateTestOrganizations():
         newOrganization = Organization(OrganizationName="Test Organization",LicenseID=License.objects.get(LicenseContent="7b14a00p"), StartDate=timezone.now(), AddressCountry="USA", AddressState="MI", AddressZip=48306, AddressCity="Rochester", AddressStreet="University Dr", AddressBuildingNumber="ODH", PhoneNumber="+19998887777")
         newOrganization.save()
         
-    def CreateTestUser():
-        newUser = UserFile(Username="TestUser1", FirstName="Test", LastName="User", Email="TestUser1@gmail.com", OrganizationID=Organization.objects.get(OrganizationName="Test Organization"), Department="Controls", Administrator=True)
-        newUser.save()
+    def CreateTestUsers():
+        newUser1 = UserFile(Username="TestUser1", FirstName="Test", LastName="User", Email="TestUser1@gmail.com", OrganizationID=Organization.objects.get(OrganizationName="Test Organization"), Department="Controls", Administrator=True)
+        newUser2 = UserFile(Username="TestUser2", FirstName="Test2", LastName="User2", Email="TestUser2@gmail.com", OrganizationID=Organization.objects.get(OrganizationName="Test Organization"), Department="Accounting", Administrator=True)
+        newUser1.save()
+        newUser2.save()
         
-    def CreateTestUserPass():
-        newUserPass = UserPass(UserFileID=UserFile.objects.get(Username="TestUser1"), EncryptedPassword="Iig1Q00eW0x+EAlVOUTDNw==", EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
-        newUserPass.save()
+    def CreateTestUserPasses():
+        newUserPass1 = UserPass(UserFileID=UserFile.objects.get(Username="TestUser1"), EncryptedPassword="Iig1Q00eW0x+EAlVOUTDNw==", EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
+        newUserPass2 = UserPass(UserFileID=UserFile.objects.get(Username="TestUser2"), EncryptedPassword="+a002abdd21122ba0201fjaj", EncrpytionMethod="AES-ECB-128", EncryptionKey="1111111111111111")
+        newUserPass1.save()
+        newUserPass2.save()
     
-    def CreateTestUserMeta():
-        newUserMeta = UserMeta(UserFileID=UserFile.objects.get(Username="TestUser1"), AccountCreationDate=timezone.now(), LastLogInDate=timezone.now())
-        newUserMeta.save()
+    def CreateTestUserMetas():
+        newUserMeta1 = UserMeta(UserFileID=UserFile.objects.get(Username="TestUser1"), AccountCreationDate=timezone.now(), LastLogInDate=timezone.now())
+        newUserMeta2 = UserMeta(UserFileID=UserFile.objects.get(Username="TestUser2"), AccountCreationDate=timezone.now(), LastLogInDate=timezone.now())
+        newUserMeta1.save()
+        newUserMeta2.save()
     
-    def CreateTestStub():
-        newStub = Stub(Title="Test Stub", Overview="Hello, this is a test stub overview.", Category="Request", Urgency="When You Have Time", Domain="Mechanical Engineering", IssuerUserFileID=UserFile.objects.get(Username="TestUser1"), DeveloperUserFileID=UserFile.objects.get(Username="TestUser1"), StartDate=timezone.now(), EstimatedCompletionTime="10", EstimatedCompletionTimeUOM="Days", PriorityInQueue=5.0, InProcess=True, Completed=False, CreationDate=timezone.now())
-        newStub.save()
+    def CreateTestStubs():
+        newStub1 = Stub(Title="Crank Shaft Fix", Overview="Fix this so we can get production rolling!", Category="System Failure", Urgency="Immediate", Domain="Mechanical Engineering", IssuerUserFileID=UserFile.objects.get(Username="TestUser1"), DeveloperUserFileID=UserFile.objects.get(Username="TestUser2"), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
+        newStub2 = Stub(Title="Rounding Error", Overview="I'm pretty sure that .49 should round to 0 not 1. See attachment below.", Category="Bug", Urgency="When You Have Time", Domain="Database", IssuerUserFileID=UserFile.objects.get(Username="TestUser1"), DeveloperUserFileID=UserFile.objects.get(Username="TestUser2"), StartDate=timezone.now(), EstimatedCompletionTime="3", EstimatedCompletionTimeUOM="Days", PriorityInQueue=5.0, InProcess=False, Completed=False, CreationDate=timezone.now())
+        newStub3 = Stub(Title="Spare Parts By Product Line", Overview="Need this ASAP for management.", Category="Request", Urgency="Highly Important", Domain="Accounting", IssuerUserFileID=UserFile.objects.get(Username="TestUser2"), DeveloperUserFileID=UserFile.objects.get(Username="TestUser1"), StartDate=timezone.now(), EstimatedCompletionTime="2", EstimatedCompletionTimeUOM="Hours", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
+        newStub1.save()
+        newStub2.save()
+        newStub3.save()
     
-    def CreateTestStubAttachment():
-        newStubAttachment = StubAttachment(StubID=Stub.objects.get(Title="Test Stub"),TotalSize=1024, CompressedSize=1000, FileServerPath="/root/Folder1/File1.txt")
+    def CreateTestStubAttachments():
+        newStubAttachment = StubAttachment(StubID=Stub.objects.get(Title="Rounding Error"),TotalSize=1024, CompressedSize=1000, FileServerPath="/root/Folder1/File1.txt")
         newStubAttachment.save()
     
     def PrintLicenses():

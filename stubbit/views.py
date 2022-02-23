@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import *
-# Create your views here.
 from .backend import *
 
 def index(request):
@@ -16,13 +15,13 @@ def index(request):
     Backend.WipeOrganizations()
     Backend.WipeLicenses()
     
-    Backend.CreateTestLicense()
-    Backend.CreateTestOrganization()
-    Backend.CreateTestUser()
-    Backend.CreateTestUserPass()
-    Backend.CreateTestUserMeta()
-    Backend.CreateTestStub()
-    Backend.CreateTestStubAttachment()
+    Backend.CreateTestLicenses()
+    Backend.CreateTestOrganizations()
+    Backend.CreateTestUsers()
+    Backend.CreateTestUserPasses()
+    Backend.CreateTestUserMetas()
+    Backend.CreateTestStubs()
+    Backend.CreateTestStubAttachments()
     
     outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
     
@@ -38,15 +37,15 @@ def home(request):
     Backend.WipeOrganizations()
     Backend.WipeLicenses()
     
-    Backend.CreateTestLicense()
-    Backend.CreateTestOrganization()
-    Backend.CreateTestUser()
-    Backend.CreateTestUserPass()
-    Backend.CreateTestUserMeta()
-    Backend.CreateTestStub()
-    Backend.CreateTestStubAttachment()
+    Backend.CreateTestLicenses()
+    Backend.CreateTestOrganizations()
+    Backend.CreateTestUsers()
+    Backend.CreateTestUserPasses()
+    Backend.CreateTestUserMetas()
+    Backend.CreateTestStubs()
+    Backend.CreateTestStubAttachments()
 
     all_stubs = Stub.objects.all()
     user = UserFile.objects.all()[0]
-    dict = {'all_stubs':all_stubs, 'user_stubs':all_stubs}
+    dict = {'all_stubs':all_stubs, 'user_stubs':all_stubs.filter(IssuerUserFileID=user.pk)}
     return render(request, 'home.html', dict)

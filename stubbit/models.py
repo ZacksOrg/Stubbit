@@ -3,31 +3,35 @@ from django.contrib.auth import hashers
 import datetime
 from enum import unique
 from django.utils import timezone
-# Create your models here.
-
 
 class License(models.Model):
-    LicenseType = models.CharField(max_length=15)
-    LicenseContent = models.CharField(unique=True,max_length=50)
+    LICENSETYPE = (('Trial', 'Trial'),
+                   ('Tier 1', 'Tier 1'),
+                   ('Tier 2', 'Tier 2'),
+                   ('Tier 3', 'Tier 3'),
+                   ('Tier 4', 'Tier 4'),
+                   ('Tier 5', 'Tier 5'))
+    LicenseType = models.CharField(max_length=15, choices=LICENSETYPE, default='Trial')
+    LicenseContent = models.CharField(unique=True, max_length=50)
     def __str__(self):
         return "\nLicense record with Primary Key = {PrimaryKey}\n--------------------------------------\nLicenseType: {LicenseType}\nLicenseContent: {LicenseContent}".format(PrimaryKey=self.pk, LicenseType=self.LicenseType, LicenseContent=self.LicenseContent)
 
 class Organization(models.Model):
     OrganizationName = models.CharField(max_length=255)
-    LicenseID = models.ForeignKey(License, on_delete=models.CASCADE)
+    LicenseID = models.ForeignKey(License, on_delete=models.CASCADE, null=True)
     StartDate = models.DateTimeField(auto_now_add=True)
     AddressCountry = models.CharField(max_length=20)
     AddressState = models.CharField(max_length=2)
     AddressZip = models.IntegerField()
     AddressCity = models.CharField(max_length=20)
     AddressStreet = models.CharField(max_length=20)
-    AddressBuildingNumber = models.CharField(max_length=20)
-    PhoneNumber = models.CharField(max_length=12)
+    AddressBuildingNumber = models.CharField(null=True, max_length=20)
+    PhoneNumber = models.CharField(null=True, max_length=12)
     def __str__(self):
         return "\nOrganization record with Primary Key = {PrimaryKey}\n--------------------------------------\nOrganizationName: {OrganizationName}\nLicenseID: {LicenseID}\nStartDate: {StartDate}\nAddressCountry: {AddressCountry}\nAddressState: {AddressState}\nAddressZip: {AddressZip}\nAddressCity: {AddressCity}\nAddressStreet: {AddressStreet}\nAddressBuildingNumber: {AddressBuildingNumber}\nPhoneNumber: {PhoneNumber}".format(PrimaryKey=self.pk, OrganizationName=self.OrganizationName,LicenseID=self.LicenseID.pk, StartDate=self.StartDate, AddressCountry=self.AddressCountry, AddressState=self.AddressState, AddressZip=self.AddressZip, AddressCity=self.AddressCity, AddressStreet=self.AddressStreet, AddressBuildingNumber=self.AddressBuildingNumber, PhoneNumber=self.PhoneNumber)
 
 class UserFile(models.Model):
-    Username = models.CharField(unique=True,max_length=20)
+    Username = models.CharField(unique=True, max_length=20)
     FirstName = models.CharField(max_length=255)
     LastName = models.CharField(max_length=255)
     Email = models.CharField(max_length=255)
@@ -53,22 +57,32 @@ class UserMeta(models.Model):
         return "\nUserMeta record with Primary Key = {PrimaryKey}\n--------------------------------------\nUserFileID: {UserFileID}\nAccountCreationDate: {AccountCreationDate}\nLastLogInDate: {LastLogInDate}".format(PrimaryKey=self.pk, UserFileID=self.UserFileID.pk, AccountCreationDate=self.AccountCreationDate, LastLogInDate=self.LastLogInDate)
  
 class Stub(models.Model):
-    URGENCY = (('High', 'High'),
-               ('Medium', 'Medium'),
-               ('Low', 'Low'),
+    CATEGORY = (('Request', 'Request'),
+               ('Bug', 'Bug'),
+               ('New Feature', 'New Feature'),
+               ('Upgrade', 'Upgrade'),
+               ('Improvement', 'Improvement'),
+               ('Suggestion', 'Suggestion'),
+               ('System Failure', 'System Failure'),
+        )
+    URGENCY = (('Immediate', 'Immediate'),
+               ('Highly Important', 'Highly Important'),
+               ('Important', 'Important'),
+               ('Somewhat Important', 'Somewhat Important'),
+               ('When You Have Time', 'When You Have Time'),
         )
     
     Title = models.CharField(max_length=255)
     Overview = models.CharField(max_length=65535)
-    Category = models.CharField(max_length=14)
+    Category = models.CharField(max_length=14, choices=CATEGORY)
     Urgency = models.CharField(max_length=18, choices=URGENCY)
     Domain = models.CharField(max_length=20)
     IssuerUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="IssuerUserFileID")
     DeveloperUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="DeveloperUserFileID")
-    StartDate = models.DateTimeField()
-    EstimatedCompletionTime = models.IntegerField()
-    EstimatedCompletionTimeUOM = models.CharField(max_length=1)
-    PriorityInQueue = models.FloatField()
+    StartDate = models.DateTimeField(null=True)
+    EstimatedCompletionTime = models.IntegerField(null=True)
+    EstimatedCompletionTimeUOM = models.CharField(null=True, max_length=1)
+    PriorityInQueue = models.FloatField(null=True)
     InProcess = models.BooleanField()
     Completed = models.BooleanField()
     CreationDate = models.DateTimeField(auto_now_add=True)
