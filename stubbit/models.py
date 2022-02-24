@@ -78,7 +78,7 @@ class Stub(models.Model):
     Urgency = models.CharField(max_length=18, choices=URGENCY)
     Domain = models.CharField(max_length=20)
     IssuerUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="IssuerUserFileID")
-    DeveloperUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="DeveloperUserFileID")
+    RecipientUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="DeveloperUserFileID")
     StartDate = models.DateTimeField(null=True)
     EstimatedCompletionTime = models.IntegerField(null=True)
     EstimatedCompletionTimeUOM = models.CharField(null=True, max_length=1)
