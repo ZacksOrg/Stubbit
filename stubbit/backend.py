@@ -1,7 +1,127 @@
 from .models import *
 from django.utils import timezone
 
+class _Stub_:
+    def __init__(self) -> None:
+        title = ""
+        overview = ""
+        category = ""
+        urgency = ""
+        domain = ""
+        issuerUserFileID = ""
+        recipientUserFileID = ""
+        startDate = ""
+        estimatedCompletionTime = 0
+        estimatedCompletionTimeUOM = ""
+        priorityInQueue = 0.0
+        inProcess = False
+        completed = False
+        creationDate = ""
+    CATEGORY = (('Request', 'Request'),
+               ('Bug', 'Bug'),
+               ('New Feature', 'New Feature'),
+               ('Upgrade', 'Upgrade'),
+               ('Improvement', 'Improvement'),
+               ('Suggestion', 'Suggestion'),
+               ('System Failure', 'System Failure'),
+        )
+    URGENCY = (('Immediate', 'Immediate'),
+               ('Highly Important', 'Highly Important'),
+               ('Important', 'Important'),
+               ('Somewhat Important', 'Somewhat Important'),
+               ('When You Have Time', 'When You Have Time'),
+        )
+    
+    title = ""
+    overview = ""
+    category = ""
+    urgency = ""
+    domain = ""
+    issuerUserFileID = ""
+    recipientUserFileID = ""
+    startDate = ""
+    estimatedCompletionTime = 0
+    estimatedCompletionTimeUOM = ""
+    priorityInQueue = 0.0
+    inProcess = False
+    completed = False
+    creationDate = ""
+
 class Backend:
+    
+    def Attempt_SignIn_User(username, password):
+        return True
+    def Attempt_SignUp_User(username, emailAddress, department, licenseKey, Password):
+        return True
+    def Check_UserName_Availability(username):
+        return True
+    def Retrieve_CurrentUser_Username():
+        return "Test Username"
+    def Retrieve_CurrentUser_EmailAddress():
+        return "Test Email Address"
+    def Retrieve_CurrentUser_Department():
+        return "Test Department"
+    def Retrieve_CurrentUser_Organization():
+        return "Test Organization"
+    def Retrieve_CurrentUser_Name():
+        return "Test Name"
+    def Retrieve_CurrentUser_Administrator():
+        return False
+    def CreateStub(title, overview, category, urgency, domain, developer):
+        return True
+    def Retrieve_Stub_Title(primaryKey):
+        return "Test Title"
+    def Retrieve_Stub_Overview(primaryKey):
+        return "Test Overview"
+    def Retrieve_Stub_Category(primaryKey):
+        return _Stub_.CATEGORY[0]
+    def Retrieve_Stub_Urgency(primaryKey):
+        return _Stub_.URGENCY[0]
+    def Retrieve_Stub_Domain(primaryKey):
+        return "Test Domain"
+    def Retrieve_Stub_IssuerName(primaryKey):
+        return "Test Issuer Name"
+    def Retrieve_Stub_DeveloperName(primaryKey):
+        return "Test Developer Name"
+    def Retrieve_Stub_StartDate(primaryKey):
+        return "Test Start Date"
+    def Retrieve_Stub_EstimatedCompletionTime(primaryKey):
+        return 0
+    def Retrieve_Stub_EstimatedCompletionTimeUOM(primaryKey):
+        return "Test UoM"
+    def Retrieve_Stub_PriorityInQueue(primaryKey):
+        return 0
+    def Retrieve_Stub_InProces(primaryKey):
+        return False
+    def Retrieve_Stub_Completed(primaryKey):
+        return False
+    def Retrieve_Stub_CreationDate(primaryKey):
+        return "01/01/2000"
+    def Update_Stub_StartDate(primaryKey, startDate):
+        return True
+    def Update_Stub_EstimatedCompletionTime(primaryKey, estimatedCompletionTime):
+        return True
+    def Update_Stub_EstimatedCompletionTimeUOM(primaryKey, estimatedCompletionTimeUOM):
+        return True
+    def Update_Stub_PriorityInQueue(primaryKey, priorityInQueue):
+        return True
+    def Attempt_Add_Organization(organizationName, addressCountry, addressState, addressCity, addressZip, addressStreet, addressBuildingNumber, phoneNumber):
+        return True
+    def Retrieve_StubInProcess():
+        return _Stub_()
+    def Retrieve_ReceivedStubs():
+        return [_Stub_()]
+    def Retrieve_SentStubs():
+        return [_Stub_()]
+    def Retrieve_OrganizationStubs():
+        return [_Stub_()]
+    def Retrieve_HistoryReceivedStubs():
+        return [_Stub_()]
+    def Retrieve_HistorySentStubs():
+        return [_Stub_()]
+    def Retrieve_HistoryOrganizationStubs():
+        return [_Stub_()]
+
     def CreateTestLicenses():
         newLicense = License(LicenseType="Trial", LicenseContent="7b14a00p")
         newLicense.save()
@@ -43,57 +163,57 @@ class Backend:
     def PrintLicenses():
         outputString = ""
         for license in License.objects.all():
-            outputString += license.__str__()
+            outputString+= license.__str__()
             if license.pk != License.objects.all()[License.objects.all().count() - 1].pk:
-                outputString += ","
+                outputString+= ","
         return outputString
     
     def PrintOrganizations():
-        outputString = ""
+        outputString= ""
         for organization in Organization.objects.all():
-            outputString += organization.__str__()
+            outputString+= organization.__str__()
             if organization.pk != Organization.objects.all()[Organization.objects.all().count() - 1].pk:
-                outputString += ","
+                outputString+= ","
         return outputString
     
     def PrintUsers():
-        outputString = ""
+        outputString= ""
         for user in UserFile.objects.all():
-            outputString += user.__str__()
+            outputString+= user.__str__()
             if user.pk != UserFile.objects.all()[UserFile.objects.all().count() - 1].pk:
-                outputString += ","
+                outputString+= ","
         return outputString
 
     def PrintUserPasses():
-        outputString = ""
+        outputString= ""
         for userPass in UserPass.objects.all():
-            outputString += userPass.__str__()
+            outputString+= userPass.__str__()
             if userPass.pk != UserPass.objects.all()[UserPass.objects.all().count() - 1].pk:
-                outputString += ","
+                outputString+= ","
         return outputString
     
     def PrintUserMetas():
-        outputString = ""
+        outputString= ""
         for userMeta in UserMeta.objects.all():
-            outputString += userMeta.__str__()
+            outputString+= userMeta.__str__()
             if userMeta.pk != UserMeta.objects.all()[UserMeta.objects.all().count() - 1].pk:
-                outputString += ","
+                outputString+= ","
         return outputString
     
     def PrintStubs():
-        outputString = ""
+        outputString= ""
         for stub in Stub.objects.all():
-            outputString += stub.__str__()
+            outputString+= stub.__str__()
             if stub.pk != Stub.objects.all()[Stub.objects.all().count() - 1].pk:
-                outputString += ","
+                outputString+= ","
         return outputString
     
     def PrintStubAttachments():
-        outputString = ""
+        outputString= ""
         for stubAttachment in StubAttachment.objects.all():
-            outputString += stubAttachment.__str__()
+            outputString+= stubAttachment.__str__()
             if stubAttachment.pk != StubAttachment.objects.all()[StubAttachment.objects.all().count() - 1].pk:
-                outputString += ","
+                outputString+= ","
         return outputString
     
     def WipeLicenses():

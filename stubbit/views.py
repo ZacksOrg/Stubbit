@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
 
-def index(request):
+def homeTest(request):
     outputHTTP_string = ""
     
     Backend.WipeStubAttachments()
@@ -27,8 +27,8 @@ def index(request):
     Backend.CreateTestStubs()
     Backend.CreateTestStubAttachments()
     
-    outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
-    
+    outputHTTP_string2 = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
+    outputHTTP_string = Backend.Retrieve_ReceivedStubs()
     return HttpResponse(outputHTTP_string, content_type="text/plain")
 
 def home(request):
