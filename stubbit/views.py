@@ -8,7 +8,7 @@ from .backend import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
-
+ActiveUser
 def index(request):
     outputHTTP_string = ""
     
@@ -58,8 +58,8 @@ def home(request):
 def signup(request):
     if request.method == 'POST' :
         username = request.POST['username']
-        firstname = request.Post['irstname']
-        lastname = request.Post['astname']
+        firstname = request.Post['firstname']
+        lastname = request.Post['lastname']
         email = request.POST['email_address']
         password2 = request.POST['password2']
         password1 = request.POST['password1']
@@ -74,6 +74,7 @@ def signup(request):
 #All data needs to be taken and place into the Database here 
                 organization = Organization.objects.filter(LicenseID=licenseKey)
                 newUser = UserFile(Username=username, FirstName=firsname, LastName=lastname, Email=email, OrganizationID=organization.OrganizationID, Department=department, Administrator=administrator)           
+                newUser.save()
                 messages.success(request, "Your Account has been successfully created")
                 return redirect('/login/')
             else:
@@ -89,6 +90,7 @@ def login(request):
         password = request.POST.get('password')
 #I don't know how to connect this username with the password.
         user = UserFile.objects.get(Username=username)
+        ActiveUser = user
         userPassword = UserPass.objects.get(EncryptedPassword=password)
         if user is not None: 
             if userPassword is not None:
@@ -108,4 +110,13 @@ def profile(request):
     return render(request,'profile.html', context)
 
 def createstub(request):
+     if request.method == 'POST' :
+        stubtitle = request.POST['stubTitle']
+        stuboverview = request.Post['stubOverview']
+        stubcategory = request.Post['StubCategory']
+        stuburgency = request.POST['stubUrgency']
+        stubdomain = request.POST['stubDomain']
+        attachments = request.POST['attachments']
+        developer = request.POST['developer']
+        newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID=UserFile.objects.get(Username=ActiveUser), DeveloperUserFileID=UserFile.objects.get(Username=developer), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
     return render(request, 'createstub.html')
