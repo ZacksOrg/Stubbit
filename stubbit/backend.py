@@ -95,7 +95,7 @@ class Backend:
             if stubAttachment.pk != StubAttachment.objects.all()[StubAttachment.objects.all().count() - 1].pk:
                 outputString += ","
         return outputString
-    
+
     def WipeLicenses():
         for license in License.objects.all():
             license.delete()

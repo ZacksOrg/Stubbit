@@ -31,10 +31,11 @@ form {
   position: relative;
   color: #333;
   border-radius: 10px;
+  margin-top: 100px;
 }
 form header {
   background: rgb(58, 141, 209);
-  padding: 30px 20px;
+  padding: 10px 20px;
   color: white;
   font-size: 1.2em;
   font-weight: 600;
@@ -104,15 +105,29 @@ form button:hover {
 </head>
  
 <body>
- 
+
+
 <form method="post" action="/signup/">
  {% csrf_token %}  
  
   <header>Create Account
   <a href="/login/"style="color: white; margin-left: 540px">Back</a>
+  <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;position:ceneter;margin-left:265px;transform: translate(40%, 0%);">
   </header>
+  {% for message in messages %}
+
+    <div class="alert alert-info"style="justify-content: center;">
+      <a class="close" href="#" data-dismiss="alert"></a>
+        {{ message }}
+    </div>
+
+  {% endfor %}
   <label>Username <span>*</span></label>
   <input type="text"   name="username" placeholder="Username" required="" />
+  <label>Firstname <span>*</span></label>
+  <input type="text"   name="firstname" placeholder="Firstname" required="" />
+  <label>Lastname <span>*</span></label>
+  <input type="text"   name="lastname" placeholder="Lastname" required="" />
   <label>Email Address <span>*</span></label>
   <input type="text"  name="email_address" placeholder="Email" required="" />
   <label>License Key <span>*</span></label>
@@ -121,8 +136,10 @@ form button:hover {
   <input type="password"  name="password1" placeholder="Password" required="" />
   <label>Confirm Password <span>*</span></label>
   <input type="password"  name="password2" placeholder="Confirm Password" required="" />
-  <label>Developer<span>*</span></label>
-  <input type="checkbox" name="developer" placeholder=""/>
+  <label>Department<span>*</span></label>
+  <input type="text" name="department" placeholder="Department"/>
+  <label>Administrator<span>*</span></label>
+  <input type="checkbox" name="admin" placeholder=""/>
   <button type="submit">Sign Up</button>
   
  
