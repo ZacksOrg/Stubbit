@@ -122,4 +122,7 @@ class Backend:
     
     def WipeStubAttachments(): 
         for stubAttachment in StubAttachment.objects.all():
-            stubAttachment.delete()         
+            stubAttachment.delete()
+            
+    def GetStubInProcess():
+        stub_inprocess = Stub.objects.filter(InProcess=True).get(DeveloperUserFileID=user.pk)

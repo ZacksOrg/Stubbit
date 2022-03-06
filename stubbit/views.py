@@ -6,7 +6,7 @@ from django.template import loader
 from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm, OrganizationForm
 from django.contrib.messages import *
 
 def index(request):
@@ -52,7 +52,8 @@ def home(request):
 
     all_stubs = Stub.objects.all()
     user = UserFile.objects.all()[0]
-    dict = {'all_stubs':all_stubs, 'user_stubs':all_stubs.filter(IssuerUserFileID=user.pk)}
+    stub_inprocess = Stub.objects.filter(InProcess=True).get(DeveloperUserFileID=user.pk)
+    dict = {'all_stubs':all_stubs, 'user_stubs':all_stubs.filter(IssuerUserFileID=user.pk), 'stub_inprocess':stub_inprocess}
     return render(request, 'home.html', dict)
 
 def signup(request):
@@ -91,4 +92,17 @@ def login(request):
         return render(request, 'login.html')
 
 def profile(request):
-    return render('profile.html')
+    return render(request, 'profile.html')
+
+def AddOrganization(request):
+
+    form = OrganizationForm()
+    if request.method == 'POST':
+        form = OrganizationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    
+    context = {'form':form}
+    return render(request, 'organization.html', context)
+
