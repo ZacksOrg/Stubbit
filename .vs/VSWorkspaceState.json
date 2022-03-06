@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\mysite",
-    "\\static",
-    "\\static\\css",
-    "\\static\\images",
     "\\stubbit",
+    "\\stubbit\\migrations",
     "\\stubbit\\templates"
   ],
   "SelectedNode": "\\stubbit\\views.py",

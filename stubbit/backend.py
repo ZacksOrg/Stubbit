@@ -215,7 +215,7 @@ class Backend:
             if stubAttachment.pk != StubAttachment.objects.all()[StubAttachment.objects.all().count() - 1].pk:
                 outputString+= ","
         return outputString
-    
+
     def WipeLicenses():
         for license in License.objects.all():
             license.delete()
@@ -242,4 +242,7 @@ class Backend:
     
     def WipeStubAttachments(): 
         for stubAttachment in StubAttachment.objects.all():
-            stubAttachment.delete()         
+            stubAttachment.delete()
+            
+    def GetStubInProcess():
+        stub_inprocess = Stub.objects.filter(InProcess=True).get(DeveloperUserFileID=user.pk)
