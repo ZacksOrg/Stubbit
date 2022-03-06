@@ -4,6 +4,7 @@ import datetime
 from enum import unique
 from django.utils import timezone
 
+
 class License(models.Model):
     LICENSETYPE = (('Trial', 'Trial'),
                    ('Tier 1', 'Tier 1'),
@@ -55,7 +56,7 @@ class UserMeta(models.Model):
     LastLogInDate = models.DateTimeField()
     def __str__(self):
         return "\nUserMeta record with Primary Key = {PrimaryKey}\n--------------------------------------\nUserFileID: {UserFileID}\nAccountCreationDate: {AccountCreationDate}\nLastLogInDate: {LastLogInDate}".format(PrimaryKey=self.pk, UserFileID=self.UserFileID.pk, AccountCreationDate=self.AccountCreationDate, LastLogInDate=self.LastLogInDate)
- 
+
 class Stub(models.Model):
     CATEGORY = (('Request', 'Request'),
                ('Bug', 'Bug'),
@@ -96,7 +97,7 @@ class StubAttachment(models.Model):
     FileServerPath = models.CharField(max_length=255)
     def __str__(self):
         return "\nStub Attachment record with Primary Key = {PrimaryKey}\n--------------------------------------\nStubID: {StubID}\nTotalSize: {TotalSize}\nCompressedSize: {CompressedSize}\nFileServerPath: {FileServerPath}".format(PrimaryKey=self.pk, StubID=self.StubID.pk, TotalSize=self.TotalSize, CompressedSize=self.CompressedSize, FileServerPath=self.FileServerPath)
-    
+
 class tbl_Authentication(models.Model):
     Empcode = models.IntegerField()
     username = models.CharField(max_length=50,default='')
@@ -107,3 +108,4 @@ class tbl_Authentication(models.Model):
         return self.username
  
     empAuth_objects = models.Manager()
+    

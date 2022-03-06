@@ -6,15 +6,10 @@ from django.template import loader
 from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
-<<<<<<< HEAD
-from .forms import CreateUserForm, OrganizationForm
+from .forms import *
 from django.contrib.messages import *
 
-=======
-from .forms import CreateUserForm
-from django.contrib import messages
-ActiveUser
->>>>>>> cc1590c8f973b9962d1420a9e6ee800f4219a35d
+
 def index(request):
     outputHTTP_string = ""
     
@@ -58,7 +53,7 @@ def home(request):
 
     all_stubs = Stub.objects.all()
     user = UserFile.objects.all()[0]
-    stub_inprocess = Stub.objects.filter(InProcess=True).get(DeveloperUserFileID=user.pk)
+    stub_inprocess = Stub.objects.filter(InProcess=True).get(RecipientUserFileID=user.pk)
     dict = {'all_stubs':all_stubs, 'user_stubs':all_stubs.filter(IssuerUserFileID=user.pk), 'stub_inprocess':stub_inprocess}
     return render(request, 'home.html', dict)
 
@@ -74,13 +69,13 @@ def signup(request):
         department = request.POST['department']
         administrator = request.Post['admin']
 #Database Username is a SQL Queries to see if it has been taken
-        if Check_UserName_Availability(username):
+        if Backend.Check_UserName_Availability(username):
             messages.error(request, "Username already taken")
         else:
             if password1 == password2:
 #All data needs to be taken and place into the Database here 
                 organization = Organization.objects.filter(LicenseID=licenseKey)
-                newUser = UserFile(Username=username, FirstName=firsname, LastName=lastname, Email=email, OrganizationID=organization.OrganizationID, Department=department, Administrator=administrator)           
+                newUser = UserFile(Username=username, FirstName=firstname, LastName=lastname, Email=email, OrganizationID=organization.OrganizationID, Department=department, Administrator=administrator)           
                 newUser.save()
                 messages.success(request, "Your Account has been successfully created")
                 return redirect('/login/')
@@ -109,7 +104,14 @@ def login(request):
         return render(request, 'login.html')
 
 def profile(request):
-<<<<<<< HEAD
+    ''
+    user = Backend.PrintUsers()
+    print('USER:', user)
+    context = {
+        'user':user
+    }
+    return render(request,'profile.html', context)
+    ''
     return render(request, 'profile.html')
 
 def AddOrganization(request):
@@ -123,15 +125,7 @@ def AddOrganization(request):
     
     context = {'form':form}
     return render(request, 'organization.html', context)
-
-=======
-    user = Backend.PrintUsers()
-    print('USER:', user)
-    context = {
-        'user':user
-    }
-    return render(request,'profile.html', context)
-
+ 
 def createstub(request):
      if request.method == 'POST' :
         stubtitle = request.POST['stubTitle']
@@ -141,6 +135,5 @@ def createstub(request):
         stubdomain = request.POST['stubDomain']
         attachments = request.POST['attachments']
         developer = request.POST['developer']
-        newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID=UserFile.objects.get(Username=ActiveUser), DeveloperUserFileID=UserFile.objects.get(Username=developer), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
-    return render(request, 'createstub.html')
->>>>>>> cc1590c8f973b9962d1420a9e6ee800f4219a35d
+        newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID=UserFile.objects.get(Username=Backend.Retrieve_CurrentUser_Username()), RecipientUserFileID=UserFile.objects.get(Username=developer), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
+        return render(request, 'createstub.html')

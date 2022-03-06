@@ -1,5 +1,8 @@
+
 from .models import *
 from django.utils import timezone
+
+ActiveUser = ""
 
 class _Stub_:
     def __init__(self) -> None:
@@ -57,6 +60,8 @@ class Backend:
         return True
     def Retrieve_CurrentUser_Username():
         return "Test Username"
+    def Retrieve_CurrentUser_PrimaryKey():
+        return UserFile.objects.all[0].pk
     def Retrieve_CurrentUser_EmailAddress():
         return "Test Email Address"
     def Retrieve_CurrentUser_Department():
@@ -67,7 +72,7 @@ class Backend:
         return "Test Name"
     def Retrieve_CurrentUser_Administrator():
         return False
-    def CreateStub(title, overview, category, urgency, domain, developer):
+    def CreateStub(title, overview, category, urgency, domain, recipient):
         return True
     def Retrieve_Stub_Title(primaryKey):
         return "Test Title"
@@ -81,8 +86,8 @@ class Backend:
         return "Test Domain"
     def Retrieve_Stub_IssuerName(primaryKey):
         return "Test Issuer Name"
-    def Retrieve_Stub_DeveloperName(primaryKey):
-        return "Test Developer Name"
+    def Retrieve_Stub_RecipientName(primaryKey):
+        return "Test Recipient Name"
     def Retrieve_Stub_StartDate(primaryKey):
         return "Test Start Date"
     def Retrieve_Stub_EstimatedCompletionTime(primaryKey):
@@ -91,8 +96,8 @@ class Backend:
         return "Test UoM"
     def Retrieve_Stub_PriorityInQueue(primaryKey):
         return 0
-    def Retrieve_Stub_InProces(primaryKey):
-        return False
+    def Retrieve_Stub_InProcess(primaryKey):
+        return _Stub_()
     def Retrieve_Stub_Completed(primaryKey):
         return False
     def Retrieve_Stub_CreationDate(primaryKey):
@@ -243,6 +248,3 @@ class Backend:
     def WipeStubAttachments(): 
         for stubAttachment in StubAttachment.objects.all():
             stubAttachment.delete()
-            
-    def GetStubInProcess():
-        stub_inprocess = Stub.objects.filter(InProcess=True).get(DeveloperUserFileID=user.pk)

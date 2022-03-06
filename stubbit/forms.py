@@ -1,3 +1,4 @@
+'''
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
@@ -24,3 +25,4 @@ class OrganizationForm(ModelForm):
                    "PhoneNumber": "Phone Number"
                   }
         fields = ['OrganizationName','AddressCountry','AddressState','AddressCity','AddressZip','AddressStreet', 'AddressBuildingNumber', 'PhoneNumber']
+        '''
