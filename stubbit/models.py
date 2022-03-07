@@ -4,6 +4,7 @@ import datetime
 from enum import unique
 from django.utils import timezone
 
+
 class License(models.Model):
     LICENSETYPE = (('Trial', 'Trial'),
                    ('Tier 1', 'Tier 1'),
@@ -55,7 +56,7 @@ class UserMeta(models.Model):
     LastLogInDate = models.DateTimeField()
     def __str__(self):
         return "\nUserMeta record with Primary Key = {PrimaryKey}\n--------------------------------------\nUserFileID: {UserFileID}\nAccountCreationDate: {AccountCreationDate}\nLastLogInDate: {LastLogInDate}".format(PrimaryKey=self.pk, UserFileID=self.UserFileID.pk, AccountCreationDate=self.AccountCreationDate, LastLogInDate=self.LastLogInDate)
- 
+
 class Stub(models.Model):
     CATEGORY = (('Request', 'Request'),
                ('Bug', 'Bug'),
@@ -78,7 +79,7 @@ class Stub(models.Model):
     Urgency = models.CharField(max_length=18, choices=URGENCY)
     Domain = models.CharField(max_length=20)
     IssuerUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="IssuerUserFileID")
-    DeveloperUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="DeveloperUserFileID")
+    RecipientUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="RecipientUserFileID")
     StartDate = models.DateTimeField(null=True)
     EstimatedCompletionTime = models.IntegerField(null=True)
     EstimatedCompletionTimeUOM = models.CharField(null=True, max_length=1)
@@ -87,7 +88,7 @@ class Stub(models.Model):
     Completed = models.BooleanField()
     CreationDate = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return "\nStub Record with Primary Key = {PrimaryKey}\n--------------------------------------\nTitle: {Title}\nOverview: {Overview}\nCategory: {Category}\nUrgency: {Urgency}\nDomain: {Domain}\nDeveloperUserFileID: {DeveloperUserFileID}\nStartDate: {StartDate}\nEstimatedCompletionTime: {EstimatedCompletionTime}\nEstimatedCompletionTimeUOM: {EstimatedCompletionTimeUOM}\nPriorityInQueue: {PriorityInQueue}\nInProcess: {InProcess}\nCompleted: {Completed}\nCreationDate: {CreationDate}".format(PrimaryKey=self.pk, Title=self.Title, Overview=self.Overview, Category=self.Category, Urgency=self.Urgency, Domain=self.Domain, DeveloperUserFileID=self.DeveloperUserFileID.pk, StartDate=self.StartDate, EstimatedCompletionTime=self.EstimatedCompletionTime, EstimatedCompletionTimeUOM=self.EstimatedCompletionTimeUOM, PriorityInQueue=self.PriorityInQueue, InProcess=self.InProcess, Completed=self.Completed, CreationDate=self.CreationDate)
+        return "\nStub Record with Primary Key = {PrimaryKey}\n--------------------------------------\nTitle: {Title}\nOverview: {Overview}\nCategory: {Category}\nUrgency: {Urgency}\nDomain: {Domain}\nDeveloperUserFileID: {RecipientUserFileID}\nStartDate: {StartDate}\nEstimatedCompletionTime: {EstimatedCompletionTime}\nEstimatedCompletionTimeUOM: {EstimatedCompletionTimeUOM}\nPriorityInQueue: {PriorityInQueue}\nInProcess: {InProcess}\nCompleted: {Completed}\nCreationDate: {CreationDate}".format(PrimaryKey=self.pk, Title=self.Title, Overview=self.Overview, Category=self.Category, Urgency=self.Urgency, Domain=self.Domain, RecipientUserFileID=self.RecipientUserFileID.pk, StartDate=self.StartDate, EstimatedCompletionTime=self.EstimatedCompletionTime, EstimatedCompletionTimeUOM=self.EstimatedCompletionTimeUOM, PriorityInQueue=self.PriorityInQueue, InProcess=self.InProcess, Completed=self.Completed, CreationDate=self.CreationDate)
 
 class StubAttachment(models.Model):
     StubID = models.ForeignKey(Stub, on_delete=models.CASCADE)
@@ -97,7 +98,6 @@ class StubAttachment(models.Model):
     def __str__(self):
         return "\nStub Attachment record with Primary Key = {PrimaryKey}\n--------------------------------------\nStubID: {StubID}\nTotalSize: {TotalSize}\nCompressedSize: {CompressedSize}\nFileServerPath: {FileServerPath}".format(PrimaryKey=self.pk, StubID=self.StubID.pk, TotalSize=self.TotalSize, CompressedSize=self.CompressedSize, FileServerPath=self.FileServerPath)
 
-#need to merge into rest of database 
 class tbl_Authentication(models.Model):
     Empcode = models.IntegerField()
     username = models.CharField(max_length=50,default='')
@@ -108,3 +108,4 @@ class tbl_Authentication(models.Model):
         return self.username
  
     empAuth_objects = models.Manager()
+    

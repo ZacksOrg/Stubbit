@@ -172,15 +172,22 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #d5eced;">
     <div class="sidebar">
         <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;">
         <a class="active" href="">Home</a>
         <a href="profile">Profile</a>
+<<<<<<< HEAD
         <a href="organization">Add Organization</a>
         <a href="">Create Stub</a>
         <a href="">Settings</a>
         <a href="login">Sign Out</a>
+=======
+        <a href="createstub">Create Stub</a>
+        <a href="">Settings</a>
+        <a href="/login/">Sign Out</a>
+        <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;position:absolute;bottom:1px;transform: translate(40%, 0%);">
+>>>>>>> 90ebb78f65e041227d868a764825de052ee8c69c
     </div>
     <div class="content">
         <div class="queue">

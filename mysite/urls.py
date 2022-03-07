@@ -18,6 +18,9 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', include('stubbit.urls')),
+    path('login/', include('stubbit.urls')),
+    path("signup/", include('stubbit.urls')),
+    path("profile/", include('stubbit.urls')),
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
 

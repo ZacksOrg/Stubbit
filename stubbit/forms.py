@@ -24,3 +24,4 @@ class OrganizationForm(ModelForm):
                    "PhoneNumber": "Phone Number"
                   }
         fields = ['OrganizationName','AddressCountry','AddressState','AddressCity','AddressZip','AddressStreet', 'AddressBuildingNumber', 'PhoneNumber']
+        
