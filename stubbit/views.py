@@ -6,7 +6,7 @@ from django.template import loader
 from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
-from .forms import *
+from .forms import CreateUserForm, OrganizationForm
 from django.contrib.messages import *
 
 
@@ -60,24 +60,27 @@ def home(request):
 def signup(request):
     if request.method == 'POST' :
         username = request.POST['username']
-        firstname = request.Post['firstname']
-        lastname = request.Post['lastname']
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
         email = request.POST['email_address']
         password2 = request.POST['password2']
         password1 = request.POST['password1']
         licenseKey = request.POST['license_key']
         department = request.POST['department']
-        administrator = request.Post['admin']
+        #administrator = request.POST['Administrator']
 #Database Username is a SQL Queries to see if it has been taken
-        if Backend.Check_UserName_Availability(username):
+        if not Backend.Check_UserName_Availability(username):
             messages.error(request, "Username already taken")
         else:
             if password1 == password2:
 #All data needs to be taken and place into the Database here 
-                organization = Organization.objects.filter(LicenseID=licenseKey)
-                newUser = UserFile(Username=username, FirstName=firstname, LastName=lastname, Email=email, OrganizationID=organization.OrganizationID, Department=department, Administrator=administrator)           
+                licenseValue = License.objects.get(LicenseContent=licenseKey)
+                organization = Organization.objects.get(LicenseID=licenseValue.pk)
+                newUser = UserFile(Username=username, FirstName=firstname, LastName=lastname, Email=email, OrganizationID=organization, Department=department, Administrator=False)           
                 newUser.save()
-                messages.success(request, "Your Account has been successfully created")
+                newUserPass = UserPass(UserFileID=newUser, EncryptedPassword=password2, EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
+                newUserPass.save()
+                #messages.success(request, "Your Account has been successfully created")
                 return redirect('/login/')
             else:
                 messages.error(request, "Your passwords do not match!")
@@ -90,12 +93,12 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-#I don't know how to connect this username with the password.
         user = UserFile.objects.get(Username=username)
         ActiveUser = user
-        userPassword = UserPass.objects.get(EncryptedPassword=password)
+        userPassword = UserPass.objects.get(UserFileID=user.pk, EncryptedPassword=password)
         if user is not None: 
             if userPassword is not None:
+                Backend.ActiveUser = user.pk
                 return redirect('/')
             else:
                 messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
@@ -103,16 +106,14 @@ def login(request):
     else:
         return render(request, 'login.html')
 
-def profile(request):
-    ''
+def profile(request):    
     user = Backend.PrintUsers()
     print('USER:', user)
     context = {
         'user':user
     }
-    return render(request,'profile.html', context)
-    ''
-    return render(request, 'profile.html')
+    return render(request,'profile.html', context)    
+    #return render(request, 'profile.html')
 
 def AddOrganization(request):
 
@@ -127,7 +128,7 @@ def AddOrganization(request):
     return render(request, 'organization.html', context)
  
 def createstub(request):
-     if request.method == 'POST' :
+    if request.method == 'POST' :
         stubtitle = request.POST['stubTitle']
         stuboverview = request.Post['stubOverview']
         stubcategory = request.Post['StubCategory']
@@ -136,4 +137,4 @@ def createstub(request):
         attachments = request.POST['attachments']
         developer = request.POST['developer']
         newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID=UserFile.objects.get(Username=Backend.Retrieve_CurrentUser_Username()), RecipientUserFileID=UserFile.objects.get(Username=developer), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
-        return render(request, 'createstub.html')
+    return render(request, 'createstub.html')

@@ -142,7 +142,7 @@ class Backend:
         newUser2.save()
         
     def CreateTestUserPasses():
-        newUserPass1 = UserPass(UserFileID=UserFile.objects.get(Username="TestUser1"), EncryptedPassword="Iig1Q00eW0x+EAlVOUTDNw==", EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
+        newUserPass1 = UserPass(UserFileID=UserFile.objects.get(Username="TestUser1"), EncryptedPassword="apples", EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
         newUserPass2 = UserPass(UserFileID=UserFile.objects.get(Username="TestUser2"), EncryptedPassword="+a002abdd21122ba0201fjaj", EncrpytionMethod="AES-ECB-128", EncryptionKey="1111111111111111")
         newUserPass1.save()
         newUserPass2.save()
