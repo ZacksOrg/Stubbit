@@ -8,49 +8,14 @@ from .backend import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, OrganizationForm
 from django.contrib.messages import *
-
+import time
 
 def index(request):
     outputHTTP_string = ""
-    
-    Backend.WipeStubAttachments()
-    Backend.WipeStubs()
-    Backend.WipeUserMetas()
-    Backend.WipeUserPasses()
-    Backend.WipeUsers()
-    Backend.WipeOrganizations()
-    Backend.WipeLicenses()
-    
-    Backend.CreateTestLicenses()
-    Backend.CreateTestOrganizations()
-    Backend.CreateTestUsers()
-    Backend.CreateTestUserPasses()
-    Backend.CreateTestUserMetas()
-    Backend.CreateTestStubs()
-    Backend.CreateTestStubAttachments()
-    
     outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
-    
     return HttpResponse(outputHTTP_string, content_type="text/plain")
 
 def home(request):
-    
-    Backend.WipeStubAttachments()
-    Backend.WipeStubs()
-    Backend.WipeUserMetas()
-    Backend.WipeUserPasses()
-    Backend.WipeUsers()
-    Backend.WipeOrganizations()
-    Backend.WipeLicenses()
-    
-    Backend.CreateTestLicenses()
-    Backend.CreateTestOrganizations()
-    Backend.CreateTestUsers()
-    Backend.CreateTestUserPasses()
-    Backend.CreateTestUserMetas()
-    Backend.CreateTestStubs()
-    Backend.CreateTestStubAttachments()
-
     all_stubs = Stub.objects.all()
     user = UserFile.objects.all()[0]
     stub_inprocess = Stub.objects.filter(InProcess=True).get(RecipientUserFileID=user.pk)
@@ -88,8 +53,7 @@ def signup(request):
     return render(request, 'signup.html')
      
  
-def login(request):
-
+def login(request):    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -98,22 +62,20 @@ def login(request):
         userPassword = UserPass.objects.get(UserFileID=user.pk, EncryptedPassword=password)
         if user is not None: 
             if userPassword is not None:
-                Backend.ActiveUser = user.pk
+                Backend.LogInSuccess_UpdateUserMeta(username, request)
+                #return HttpResponse(outputHTTP_string, content_type="text/plain")
                 return redirect('/')
             else:
                 messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
                 return redirect ('/login/')
     else:
+        Backend.DatabaseRefreshWithTestData()
         return render(request, 'login.html')
 
 def profile(request):    
-    user = Backend.PrintUsers()
-    print('USER:', user)
-    context = {
-        'user':user
-    }
+    loggedInUser = Backend.GetLoggedInUserObj(request)
+    context = {'loggedInUser':loggedInUser}
     return render(request,'profile.html', context)    
-    #return render(request, 'profile.html')
 
 def AddOrganization(request):
 
