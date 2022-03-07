@@ -6,15 +6,12 @@ from django.template import loader
 from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
-<<<<<<< HEAD
 from .forms import CreateUserForm, OrganizationForm
 from django.contrib.messages import *
 
-=======
 from .forms import CreateUserForm
 from django.contrib import messages
-ActiveUser
->>>>>>> cc1590c8f973b9962d1420a9e6ee800f4219a35d
+
 def index(request):
     outputHTTP_string = ""
     
@@ -109,7 +106,7 @@ def login(request):
         return render(request, 'login.html')
 
 def profile(request):
-<<<<<<< HEAD
+
     return render(request, 'profile.html')
 
 def AddOrganization(request):
@@ -124,7 +121,6 @@ def AddOrganization(request):
     context = {'form':form}
     return render(request, 'organization.html', context)
 
-=======
     user = Backend.PrintUsers()
     print('USER:', user)
     context = {
@@ -142,5 +138,5 @@ def createstub(request):
         attachments = request.POST['attachments']
         developer = request.POST['developer']
         newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID=UserFile.objects.get(Username=ActiveUser), DeveloperUserFileID=UserFile.objects.get(Username=developer), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
-    return render(request, 'createstub.html')
->>>>>>> cc1590c8f973b9962d1420a9e6ee800f4219a35d
+     return render(request, 'createstub.html')
+
