@@ -4,6 +4,7 @@ from django.utils import timezone
 from ipware import get_client_ip
 from django.contrib import messages
 
+import time
 ActiveUser = ""
 
 class _Stub_:
@@ -53,7 +54,20 @@ class _Stub_:
     creationDate = ""
 
 class Backend:
-    
+    def Timer():
+        timesec = 3
+        while timesec > 0:
+            timesec -= 1
+            time.sleep(1)
+        return True
+    def Authentication(username, password):
+        try:
+            user = UserFile.objects.get(Username=username)
+            userPassword = UserPass.objects.get(UserFileID=user.pk, EncryptedPassword=password)
+            return True
+        except Exception as identifier:
+            return False
+
     def Attempt_SignIn_User(username, password):
         return True
     def Attempt_SignUp_User(username, emailAddress, department, licenseKey, Password):
