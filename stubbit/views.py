@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate, logout
 from django.http import HttpResponse
@@ -7,7 +7,7 @@ from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, OrganizationForm
-from django.contrib.messages import *
+from django.contrib import messages
 import time
 
 def refresh(request):
@@ -36,14 +36,17 @@ def signup(request):
         password1 = request.POST['password1']
         licenseKey = request.POST['license_key']
         department = request.POST['department']
-        #administrator = request.POST['Administrator']
 #Database Username is a SQL Queries to see if it has been taken
         if not Backend.Check_UserName_Availability(username):
             messages.error(request, "Username already taken")
         else:
             if password1 == password2:
-#All data needs to be taken and place into the Database here 
-                licenseValue = License.objects.get(LicenseContent=licenseKey)
+#All data needs to be taken and place into the Database here
+                try:
+                    licenseValue = License.objects.get(LicenseContent=licenseKey)
+                except Exception as identifier:
+                    messages.error(request, "You did not enter a valid license kay!")
+                    return redirect('/signup/')
                 organization = Organization.objects.get(LicenseID=licenseValue.pk)
                 newUser = UserFile(Username=username, FirstName=firstname, LastName=lastname, Email=email, OrganizationID=organization, Department=department, Administrator=False)           
                 newUser.save()
@@ -51,28 +54,36 @@ def signup(request):
                 newUserPass.save()
                 newUserMeta = UserMeta(UserFileID=newUser, AccountCreationDate=timezone.now())
                 newUserMeta.save()
-                return redirect('/login/')
+                return redirect('/signupsuccess/')
             else:
                 messages.error(request, "Your passwords do not match!")
                 return redirect('/signup/')
     return render(request, 'signup.html')
      
- 
-def login(request):    
+def signupsuccess(request):
+    messages.success(request, "You have signed up successfully!")
+    return render(request, 'signupsuccess.html')
+
+def login(request):
+
     if request.method == 'POST':
         username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = UserFile.objects.get(Username=username)
-        userPassword = UserPass.objects.get(UserFileID=user.pk, EncryptedPassword=password)
-        if user is not None: 
-            if userPassword is not None:
-                Backend.LogInSuccess_UpdateUserMeta(username, request)
-                return redirect('/')
-            else:
-                messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
-                return redirect ('/login/')
+        password = request.POST.get('password')       
+        if Backend.Authentication(username, password) == True:
+            user = UserFile.objects.get(Username=username)
+            Backend.LogInSuccess_UpdateUserMeta(username, request)
+            return redirect('/loginwelcome/')
+        else:
+            messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
+            return redirect ('/login/')
     else:
         return render(request, 'login.html')
+
+def loginwelcome(request):       
+    messages.success(request, "Welcome to Stubbit!")
+    return render(request, 'loginwelcome.html')
+
+
 
 def profile(request):    
     loggedInUser = Backend.GetLoggedInUserObj(request)
