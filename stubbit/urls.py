@@ -7,5 +7,6 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("login/", views.login, name="login"),
     path("organization/", views.AddOrganization, name="organization"),
-    path("createstub/", views.createstub, name="createstub")
+    path("createstub/", views.createstub, name="createstub"),
+    path("refresh/", views.refresh, name="refresh")
 ]

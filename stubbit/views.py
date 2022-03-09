@@ -10,6 +10,10 @@ from .forms import CreateUserForm, OrganizationForm
 from django.contrib.messages import *
 import time
 
+def refresh(request):
+    Backend.DatabaseRefreshWithTestData()
+    return HttpResponse("Database Refresh Complete", content_type="text/plain")
+
 def index(request):
     outputHTTP_string = ""
     outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
@@ -45,7 +49,8 @@ def signup(request):
                 newUser.save()
                 newUserPass = UserPass(UserFileID=newUser, EncryptedPassword=password2, EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
                 newUserPass.save()
-                #messages.success(request, "Your Account has been successfully created")
+                newUserMeta = UserMeta(UserFileID=newUser, AccountCreationDate=timezone.now())
+                newUserMeta.save()
                 return redirect('/login/')
             else:
                 messages.error(request, "Your passwords do not match!")
@@ -58,18 +63,15 @@ def login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = UserFile.objects.get(Username=username)
-        ActiveUser = user
         userPassword = UserPass.objects.get(UserFileID=user.pk, EncryptedPassword=password)
         if user is not None: 
             if userPassword is not None:
                 Backend.LogInSuccess_UpdateUserMeta(username, request)
-                #return HttpResponse(outputHTTP_string, content_type="text/plain")
                 return redirect('/')
             else:
                 messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
                 return redirect ('/login/')
     else:
-        Backend.DatabaseRefreshWithTestData()
         return render(request, 'login.html')
 
 def profile(request):    
