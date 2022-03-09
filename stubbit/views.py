@@ -57,6 +57,10 @@ def home(request):
 from django.contrib import messages
 import time
 
+def refresh(request):
+    Backend.DatabaseRefreshWithTestData()
+    return HttpResponse("Database Refresh Complete", content_type="text/plain")
+
 def index(request):
     outputHTTP_string = ""
     outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
@@ -96,7 +100,8 @@ def signup(request):
                 newUser.save()
                 newUserPass = UserPass(UserFileID=newUser, EncryptedPassword=password2, EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
                 newUserPass.save()
-                #messages.success(request, "Your Account has been successfully created")
+                newUserMeta = UserMeta(UserFileID=newUser, AccountCreationDate=timezone.now())
+                newUserMeta.save()
                 return redirect('/signupsuccess/')
             else:
                 messages.error(request, "Your passwords do not match!")
@@ -114,20 +119,17 @@ def login(request):
         password = request.POST.get('password')
         if Backend.Authentication(username, password) == True:
             user = UserFile.objects.get(Username=username)
-            Backend.ActiveUser = user.pk
+            Backend.LogInSuccess_UpdateUserMeta(username, request)
             return redirect('/loginwelcome/')
         else:
             messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
             return redirect ('/login/')
     else:
-        Backend.DatabaseRefreshWithTestData()
         return render(request, 'login.html')
 
 def loginwelcome(request):
     messages.success(request, "Welcome to Stubbit!")
     return render(request, 'loginwelcome.html')
-
-
 
 def profile(request):
     loggedInUser = Backend.GetLoggedInUserObj(request)
@@ -135,7 +137,6 @@ def profile(request):
     return render(request,'profile.html', context)
 
 def AddOrganization(request):
-
     form = OrganizationForm()
     if request.method == 'POST':
         form = OrganizationForm(request.POST)
