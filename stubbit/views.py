@@ -83,15 +83,12 @@ def loginwelcome(request):
     messages.success(request, "Welcome to Stubbit!")
     return render(request, 'loginwelcome.html')
 
-
-
 def profile(request):    
     loggedInUser = Backend.GetLoggedInUserObj(request)
     context = {'loggedInUser':loggedInUser}
     return render(request,'profile.html', context)    
 
 def AddOrganization(request):
-
     form = OrganizationForm()
     if request.method == 'POST':
         form = OrganizationForm(request.POST)
