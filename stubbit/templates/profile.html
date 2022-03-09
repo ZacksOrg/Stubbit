@@ -31,7 +31,8 @@ form {
   position: relative;
   color: #333;
   border-radius: 10px;
-  margin-top: 100px;
+  margin-top: 10%;
+  margin-bottom: 10%;
 }
 form header {
   background: rgb(58, 141, 209);
@@ -73,6 +74,7 @@ form .text{
   position: relative;
   font-family: inherit;
   margin-left: 20px;
+  font-size: 1.45em;
 }
 form button {
   position: relative;
@@ -96,34 +98,51 @@ form button {
 form button:hover {
   background: #98cbfa;
 }
+
+.column {
+  float: left;
+  width: 33%;
+  }
+
+  .row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
 </style>
 </head>
  
 <body>
  
-<form method="get" action="/login/">
+<form method="get" action="/profile/">
  {% csrf_token %}  
  
+  <header>
+    <div class="row">
+      <div align="left" class="column" style="position: relative; left: 0px; top: 0px;"><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></div>  
+      <div align="center" class="column" style="font-size: 2.5em; position: relative; left: 0px; top: 15px;">Profile</div>  
+      <div align="right" class="column" style="position: relative; left: 0px; top: 37px"><a href="/"style="color: white;">Back</a>  </div>
+    </div>
   <header>Profile
-  <a href="/"style="color: white; margin-left: 540px">Back</a>
-  <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;position:ceneter;margin-left:265px;transform: translate(40%, 0%);">
+  <a href="/"style="color: white; margin-left: 85%">Back</a>
+  <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;position:ceneter;margin-left:37%;transform: translate(40%, 0%);">
   </header>
-  </header>
-  <label>Username <span>*</span></label>
-  <div class="text">{{ user.Username }}</div>
-  <label>Firstname <span>*</span></label>
-  <div class="text">{{ user.Firstname }}</div>
-  <label>Lastname <span>*</span></label>
-  <div class="text">{{ user.Lastname }}</div>
-  <label>Email Address <span>*</span></label>
-  <div class="text">{{ user.Email }}</div>
-  <label>Department <span>*</span></label>
-  <div class="text">{{ user.Department }}</div>
-  <label>Company <span>*</span></label>
-  <div class="text">{{ user.OrganizationID }}</div>
-  <label>Administrator<span>*</span></label>
-  <div class="text">{{ user.Administrator }}</div>
+  <label>Username:</label>
+  <div class="text">{{ loggedInUser.Username }}</div>
+  <label>First Name:</label>
+  <div class="text">{{ loggedInUser.FirstName }}</div>
+  <label>Last Name:</label>
+  <div class="text">{{ loggedInUser.LastName }}</div>
+  <label>Email Address:</label>
+  <div class="text">{{ loggedInUser.Email }}</div>
+  <label>Department:</label>
+  <div class="text">{{ loggedInUser.Department }}</div>
+  <label>Company:</label>
+  <div class="text">{{ loggedInUser.OrganizationID.OrganizationName }}</div>
+  <label>Administrator?:</label>
+  <div class="text">{{ loggedInUser.Administrator }}</div>
+  <div><a>&nbsp;</a></div>
 </form>
- 
+
 </body>
 </html>

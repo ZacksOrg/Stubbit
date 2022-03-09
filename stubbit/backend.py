@@ -1,7 +1,10 @@
 
 from .models import *
 from django.utils import timezone
+from ipware import get_client_ip
+from django.contrib import messages
 
+import time
 ActiveUser = ""
 
 class _Stub_:
@@ -51,7 +54,20 @@ class _Stub_:
     creationDate = ""
 
 class Backend:
-    
+    def Timer():
+        timesec = 3
+        while timesec > 0:
+            timesec -= 1
+            time.sleep(1)
+        return True
+    def Authentication(username, password):
+        try:
+            user = UserFile.objects.get(Username=username)
+            userPassword = UserPass.objects.get(UserFileID=user.pk, EncryptedPassword=password)
+            return True
+        except Exception as identifier:
+            return False
+
     def Attempt_SignIn_User(username, password):
         return True
     def Attempt_SignUp_User(username, emailAddress, department, licenseKey, Password):
@@ -248,3 +264,38 @@ class Backend:
     def WipeStubAttachments(): 
         for stubAttachment in StubAttachment.objects.all():
             stubAttachment.delete()
+    
+    def DatabaseRefreshWithTestData():
+        Backend.WipeStubAttachments()
+        Backend.WipeStubs()
+        Backend.WipeUserMetas()
+        Backend.WipeUserPasses()
+        Backend.WipeUsers()
+        Backend.WipeOrganizations()
+        Backend.WipeLicenses()
+        
+        Backend.CreateTestLicenses()
+        Backend.CreateTestOrganizations()
+        Backend.CreateTestUsers()
+        Backend.CreateTestUserPasses()
+        Backend.CreateTestUserMetas()
+        Backend.CreateTestStubs()
+        Backend.CreateTestStubAttachments()
+    
+    def LogInSuccess_UpdateUserMeta(username, request):
+        client_ip, is_routable = get_client_ip(request)
+        user_obj = UserFile.objects.get(Username=username)
+        usermeta_obj = UserMeta.objects.get(UserFileID=user_obj)
+        usermeta_obj.LastLogInDate = timezone.now()
+        usermeta_obj.LastIPAddress = client_ip
+        usermeta_obj.save()
+    
+    def GetLoggedInUserObj(request):
+        client_ip, is_routable = get_client_ip(request)
+        usermeta_obj = UserMeta.objects.get(LastIPAddress=client_ip)
+        timeSinceLastLogin = datetime.datetime.now(timezone.utc) - usermeta_obj.LastLogInDate   
+        if (timeSinceLastLogin.seconds//60) < 60:
+            user_obj = UserFile.objects.get(id=usermeta_obj.UserFileID.pk)
+            return user_obj
+        
+        return None

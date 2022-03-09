@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate, logout
 from django.http import HttpResponse
@@ -7,6 +7,7 @@ from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, OrganizationForm
+<<<<<<< HEAD
 from django.contrib.messages import *
 
 from .forms import CreateUserForm
@@ -53,6 +54,17 @@ def home(request):
     Backend.CreateTestStubs()
     Backend.CreateTestStubAttachments()
 
+=======
+from django.contrib import messages
+import time
+
+def index(request):
+    outputHTTP_string = ""
+    outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
+    return HttpResponse(outputHTTP_string, content_type="text/plain")
+
+def home(request):
+>>>>>>> 94f917f0101398b30307a2a7512e979fea65320c
     all_stubs = Stub.objects.all()
     user = UserFile.objects.all()[0]
     stub_inprocess = Stub.objects.filter(InProcess=True).get(RecipientUserFileID=user.pk)
@@ -69,53 +81,59 @@ def signup(request):
         password1 = request.POST['password1']
         licenseKey = request.POST['license_key']
         department = request.POST['department']
-        #administrator = request.POST['Administrator']
 #Database Username is a SQL Queries to see if it has been taken
         if not Backend.Check_UserName_Availability(username):
             messages.error(request, "Username already taken")
         else:
             if password1 == password2:
 #All data needs to be taken and place into the Database here
-                licenseValue = License.objects.get(LicenseContent=licenseKey)
+                try:
+                    licenseValue = License.objects.get(LicenseContent=licenseKey)
+                except Exception as identifier:
+                    messages.error(request, "You did not enter a valid license kay!")
+                    return redirect('/signup/')
                 organization = Organization.objects.get(LicenseID=licenseValue.pk)
                 newUser = UserFile(Username=username, FirstName=firstname, LastName=lastname, Email=email, OrganizationID=organization, Department=department, Administrator=False)
                 newUser.save()
                 newUserPass = UserPass(UserFileID=newUser, EncryptedPassword=password2, EncrpytionMethod="AES-ECB-128", EncryptionKey="1234567890123456")
                 newUserPass.save()
                 #messages.success(request, "Your Account has been successfully created")
-                return redirect('/login/')
+                return redirect('/signupsuccess/')
             else:
                 messages.error(request, "Your passwords do not match!")
                 return redirect('/signup/')
     return render(request, 'signup.html')
 
+def signupsuccess(request):
+    messages.success(request, "You have signed up successfully!")
+    return render(request, 'signupsuccess.html')
 
 def login(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = UserFile.objects.get(Username=username)
-        ActiveUser = user
-        userPassword = UserPass.objects.get(UserFileID=user.pk, EncryptedPassword=password)
-        if user is not None:
-            if userPassword is not None:
-                Backend.ActiveUser = user.pk
-                return redirect('/')
-            else:
-                messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
-                return redirect ('/login/')
+        if Backend.Authentication(username, password) == True:
+            user = UserFile.objects.get(Username=username)
+            Backend.ActiveUser = user.pk
+            return redirect('/loginwelcome/')
+        else:
+            messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
+            return redirect ('/login/')
     else:
+        Backend.DatabaseRefreshWithTestData()
         return render(request, 'login.html')
 
+def loginwelcome(request):
+    messages.success(request, "Welcome to Stubbit!")
+    return render(request, 'loginwelcome.html')
+
+
+
 def profile(request):
-    user = Backend.PrintUsers()
-    print('USER:', user)
-    context = {
-        'user':user
-    }
+    loggedInUser = Backend.GetLoggedInUserObj(request)
+    context = {'loggedInUser':loggedInUser}
     return render(request,'profile.html', context)
-    #return render(request, 'profile.html')
 
 def AddOrganization(request):
 

@@ -106,16 +106,17 @@ form button:hover {
  {% csrf_token %}  
  
   <header>Login
-    <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;position:ceneter;margin-left:215px;transform: translate(40%, 0%);">
+    <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;position:ceneter;margin-left:25%;transform: translate(40%, 0%);">
   </header>
   {% for message in messages %}
 
-    <div class="alert alert-info"style="justify-content: center;">
+    <div class="alert {{message.tags}}"style="justify-content: center;">
       <a class="close" href="#" data-dismiss="alert"></a>
         {{ message }}
     </div>
 
   {% endfor %}
+  <div class="text">{{error}}</div>
   <label>Username <span>*</span></label>
   <input type="text"   name="username" placeholder="Username" required="" />
   <label>Password <span>*</span></label>
@@ -124,7 +125,6 @@ form button:hover {
   <div class="text">Don't have an account? Create one <a href = "/signup"><u>here</u></a><a style="color: black">!</a></div>
  
 </form>
-
 
 </body>
 </html>

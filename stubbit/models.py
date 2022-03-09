@@ -54,6 +54,7 @@ class UserMeta(models.Model):
     UserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE)
     AccountCreationDate = models.DateTimeField(auto_now_add=True)
     LastLogInDate = models.DateTimeField()
+    LastIPAddress = models.CharField(max_length=15, default="")
     def __str__(self):
         return "\nUserMeta record with Primary Key = {PrimaryKey}\n--------------------------------------\nUserFileID: {UserFileID}\nAccountCreationDate: {AccountCreationDate}\nLastLogInDate: {LastLogInDate}".format(PrimaryKey=self.pk, UserFileID=self.UserFileID.pk, AccountCreationDate=self.AccountCreationDate, LastLogInDate=self.LastLogInDate)
 
