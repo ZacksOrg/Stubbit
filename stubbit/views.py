@@ -7,7 +7,7 @@ from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, OrganizationForm
-<<<<<<< HEAD
+
 from django.contrib.messages import *
 
 from .forms import CreateUserForm
@@ -54,7 +54,6 @@ def home(request):
     Backend.CreateTestStubs()
     Backend.CreateTestStubAttachments()
 
-=======
 from django.contrib import messages
 import time
 
@@ -64,7 +63,7 @@ def index(request):
     return HttpResponse(outputHTTP_string, content_type="text/plain")
 
 def home(request):
->>>>>>> 94f917f0101398b30307a2a7512e979fea65320c
+
     all_stubs = Stub.objects.all()
     user = UserFile.objects.all()[0]
     stub_inprocess = Stub.objects.filter(InProcess=True).get(RecipientUserFileID=user.pk)
@@ -164,4 +163,5 @@ def createstub(request):
         attachments = request.POST['attachments']
         developer = request.POST['developer']
         newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID=UserFile.objects.get(Username=ActiveUser), DeveloperUserFileID=UserFile.objects.get(Username=developer), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
-     return render(request, 'createstub.html')
+
+    return render(request, 'createstub.html')
