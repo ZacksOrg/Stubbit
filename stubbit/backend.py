@@ -384,5 +384,4 @@ class Backend:
         if (timeSinceLastLogin.seconds//60) < 60:
             user_obj = UserFile.objects.get(id=usermeta_obj.UserFileID.pk)
             return user_obj
-
         return None
