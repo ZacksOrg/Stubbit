@@ -376,7 +376,11 @@ class Backend:
     def GetLoggedInUserObj(request):
         client_ip, is_routable = get_client_ip(request)
         usermeta_obj = UserMeta.objects.order_by('-LastLogInDate').filter(LastIPAddress=client_ip).first()
+<<<<<<< HEAD
         timeSinceLastLogin = datetime.datetime.now(timezone.utc) - usermeta_obj.LastLogInDate
+=======
+        timeSinceLastLogin = datetime.datetime.now(timezone.utc) - usermeta_obj.LastLogInDate   
+>>>>>>> 3f65c5704599cdac5a614d5d6439660c6483daf9
         if (timeSinceLastLogin.seconds//60) < 60:
             user_obj = UserFile.objects.get(id=usermeta_obj.UserFileID.pk)
             return user_obj
