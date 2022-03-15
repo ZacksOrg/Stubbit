@@ -147,13 +147,6 @@ def AddOrganization(request):
     context = {'form':form}
     return render(request, 'organization.html', context)
 
-    user = Backend.PrintUsers()
-    print('USER:', user)
-    context = {
-        'user':user
-    }
-    return render(request,'profile.html', context)
-
 def createstub(request):
     if request.method == 'POST' :
         stubtitle = request.POST['stubTitle']
