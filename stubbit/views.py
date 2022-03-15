@@ -148,14 +148,18 @@ def AddOrganization(request):
     return render(request, 'organization.html', context)
 
 def createstub(request):
+    loggedInUser = Backend.GetLoggedInUserObj(request)
+    allDevelopers = UserFile.objects.all()
+    context = {'allDevelopers':allDevelopers}
     if request.method == 'POST' :
         stubtitle = request.POST['stubTitle']
-        stuboverview = request.Post['stubOverview']
-        stubcategory = request.Post['StubCategory']
+        stuboverview = request.POST['stubOverview']
+        stubcategory = request.POST['stubCategory']
         stuburgency = request.POST['stubUrgency']
         stubdomain = request.POST['stubDomain']
-        attachments = request.POST['attachments']
         developer = request.POST['developer']
-        newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID=UserFile.objects.get(Username=ActiveUser), DeveloperUserFileID=UserFile.objects.get(Username=developer), StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=True, Completed=False, CreationDate=timezone.now())
-
-    return render(request, 'createstub.html')
+        dev = UserFile.objects.get(Username=developer)
+        newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID_id=loggedInUser.pk, RecipientUserFileID_id=dev.pk, StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=False, Completed=False, CreationDate=timezone.now())
+        newstub.save()
+        return redirect('/')
+    return render(request, 'createstub.html', context)
