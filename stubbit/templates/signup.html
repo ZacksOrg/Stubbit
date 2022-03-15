@@ -101,7 +101,16 @@ form button {
 form button:hover {
   background: #98cbfa;
 }
+.column {
+  float: left;
+  width: 33%;
+  }
 
+  .row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
 </style>
 </head>
  
@@ -111,10 +120,13 @@ form button:hover {
 <form method="post" action="/signup/">
  {% csrf_token %}  
  
-  <header>Create Account
-  <a href="/login/"style="color: white; margin-left: 75%">Back</a>
-  <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;position:ceneter;margin-left:38%;transform: translate(40%, 0%);">
-  </header>
+  <header>
+<div class="row">
+  <div align="left" class="column" style="position: relative; left: 0px; top: 0px;"><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></div>  
+  <div align="center" class="column" style="font-size: 2.5em; position: relative; left: 0px; top: 15px;">Profile</div>  
+  <div align="right" class="column" style="position: relative; left: 0px; top: 37px"><a href="/login"style="color: white;">Back</a>  </div>
+</div>
+</header>
   {% for message in messages %}
 
     <div class="alert {{message.tags}}"style="justify-content: center;">

@@ -67,11 +67,27 @@ def index(request):
     return HttpResponse(outputHTTP_string, content_type="text/plain")
 
 def home(request):
-
     all_stubs = Stub.objects.all()
-    user = UserFile.objects.all()[0]
-    stub_inprocess = Stub.objects.filter(InProcess=True).get(RecipientUserFileID=user.pk)
-    dict = {'all_stubs':all_stubs, 'user_stubs':all_stubs.filter(IssuerUserFileID=user.pk), 'stub_inprocess':stub_inprocess}
+    loggedInUser = Backend.GetLoggedInUserObj(request)    
+    stub_inprocess = None
+    received_stubs = None
+    sent_stubs = None
+    
+    try:        
+        stub_inprocess = all_stubs.filter(InProcess=True).get(RecipientUserFileID=loggedInUser.pk)
+    except:
+        stub_inprocess = None
+        
+    try:        
+        received_stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk)
+    except:
+        received_stubs = None
+        
+    try:        
+        sent_stubs = all_stubs.filter(IssuerUserFileID=loggedInUser.pk)
+    except:
+        sent_stubs = None
+    dict = {'received_stubs':received_stubs, 'sent_stubs':sent_stubs, 'stub_inprocess':stub_inprocess}
     return render(request, 'home.html', dict)
 
 def signup(request):
@@ -120,7 +136,7 @@ def login(request):
         if Backend.Authentication(username, password) == True:
             user = UserFile.objects.get(Username=username)
             Backend.LogInSuccess_UpdateUserMeta(username, request)
-            return redirect('/loginwelcome/')
+            return redirect('/login_message_homeredirect/')
         else:
             messages.error(request, "Incorrect Credentials! Please makes sure your username and password are correct!")
             return redirect ('/login/')
@@ -128,8 +144,16 @@ def login(request):
         return render(request, 'login.html')
 
 def loginwelcome(request):
-    messages.success(request, "Welcome to Stubbit!")
-    return render(request, 'loginwelcome.html')
+    messages.success(request, "Your credentials were authenticated successfully. Welcome to Stubbit!")
+    return render(request, 'message_homeredirect.html')
+
+def addOrganizationSuccess(request):
+    messages.success(request, "Adding that Organization was successful!")
+    return render(request, 'message_homeredirect.html')
+
+def addStubSuccess(request):
+    messages.success(request, "The Create Stub Operation was successful!")
+    return render(request, 'message_homeredirect.html')
 
 def profile(request):
     loggedInUser = Backend.GetLoggedInUserObj(request)
@@ -142,7 +166,8 @@ def AddOrganization(request):
         form = OrganizationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            Backend.AddLicenseForMostRecentOrganizationRow(request)
+            return redirect('/addOrganization_message_homeredirect/')
 
     context = {'form':form}
     return render(request, 'organization.html', context)
@@ -161,5 +186,5 @@ def createstub(request):
         dev = UserFile.objects.get(Username=developer)
         newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID_id=loggedInUser.pk, RecipientUserFileID_id=dev.pk, StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=False, Completed=False, CreationDate=timezone.now())
         newstub.save()
-        return redirect('/')
+        return redirect('/createStub_message_homeredirect/')
     return render(request, 'createstub.html', context)

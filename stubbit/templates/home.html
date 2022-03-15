@@ -209,7 +209,7 @@
                     <th>Urgency</th>
                     <th>Creation Date</th>
                 </tr>-->
-                    {% for i in all_stubs %}
+                    {% for i in received_stubs %}
                     <tr>
                         <td>{{i.IssuerUserFileID.FirstName}} {{i.IssuerUserFileID.LastName}}</td>
                         <td>{{i.Title}}</td>
@@ -229,7 +229,7 @@
                     <th>Urgency</th>
                     <th>Creation Date</th>
                 </tr>-->
-                    {% for i in user_stubs %}
+                    {% for i in sent_stubs %}
                     <tr>
                         <td>{{i.Title}}</td>
                         <td>{{i.Category}}</td>

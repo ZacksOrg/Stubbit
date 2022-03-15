@@ -9,6 +9,8 @@ urlpatterns = [
     path("organization/", views.AddOrganization, name="organization"),
     path("createstub/", views.createstub, name="createstub"),
     path("refresh/", views.refresh, name="refresh"),
-    path("loginwelcome/", views.loginwelcome, name="loginwelcome"),
+    path("login_message_homeredirect/", views.loginwelcome, name="loginwelcome"),
+    path("addOrganization_message_homeredirect/", views.addOrganizationSuccess, name="addOrganizationSuccess"),
+    path("createStub_message_homeredirect/", views.addStubSuccess, name="addStubSuccess"),
     path("signupsuccess/", views.signupsuccess, name="signupsuccess")
 ]
