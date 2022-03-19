@@ -35,6 +35,7 @@ class UserFile(models.Model):
     Username = models.CharField(unique=True, max_length=20)
     FirstName = models.CharField(max_length=255)
     LastName = models.CharField(max_length=255)
+    Name = models.CharField(max_length=510, default='')
     Email = models.CharField(max_length=255)
     OrganizationID = models.ForeignKey(Organization, on_delete=models.CASCADE, null=True)
     Department = models.CharField(max_length=20)

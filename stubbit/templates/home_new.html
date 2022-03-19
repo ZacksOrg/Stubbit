@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">-->
+    <style>
+
+
+
+        h1 {padding: 40px; text-align: center; font-size: 1.5em;}
+
+li a {text-decoration : none; color : #2d2f31; font-size: 1.2em; font-weight: 550;}
+
+
+nav {  
+  width : 700px; 
+  background: #79a7ed;
+  margin : 50px auto; 
+  position: relative;
+  bottom: 0px;
+  left: -5px;
+  font-family: "Lato", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+span {
+  padding : 50px;
+  background : #4d8ef1; 
+  color : white;
+  font-family: "Lato", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  cursor : pointer;
+  display: block;
+}
+
+span::after {
+  float: right;
+  right: 10%;
+  content: "+";
+}
+
+.slide {
+  clear:both;
+  width:100%;
+  height:0px;
+  overflow: hidden;
+  text-align: center;
+  transition: height .4s ease;
+}
+
+.slide li {padding : 30px;}
+
+#touch {position: absolute; opacity: 0; height: 0px;}    
+
+#touch:checked + .slide {height: 300px;} 
+
+
+
+
+
+        body {
+            margin: 0;
+            font-family: "Lato", sans-serif;
+            background-color: #d6dffb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+
+        .column {
+            flex: 50%;
+            padding: 10px;
+        }
+
+        table {
+        }
+
+        .quetbl {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .td1 {
+            border: solid 1px #000;
+            padding: 15px;
+            background-color: rgb(77 142 241);
+            color: white;
+        }
+        .td2 {
+            padding: 0px;
+            color: white;
+        }
+
+
+
+        tr:hover {
+            
+        }
+
+        button.stubbtn {
+          background-color: #0095ff;
+          border: 2px solid black;
+          border-radius: 3px;
+          box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+          box-sizing: border-box;
+          color: #fff;
+          cursor: pointer;
+          display: inline-block;
+          font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+          font-size: 22px;
+          font-weight: 550;
+          line-height: 1.15385;
+          margin: 0;
+          outline: none;
+          padding: 8px .8em;
+          position: relative;
+          text-align: center;
+          text-decoration: none;
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
+          vertical-align: baseline;
+          white-space: nowrap;
+          position: absolute;
+          height: 55px;
+          width: 180px;
+          bottom: 141px;
+          left: -38px;
+          -webkit-transform: rotate(270deg);
+        }
+
+        button.stubbtn:hover,
+        button.stubbtn:focus {
+          background-color: #07c;
+        }
+
+        button.stubbtn:focus {
+          box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+        }
+
+        button.stubbtn:active {
+        font-size: 30px;
+        font-weight: 600;
+        background-color: #0064bd;
+          
+        }
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: rgb(77 142 241);
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+
+            .sidebar img {
+                display:block;
+                margin:auto;
+
+            }
+
+            .sidebar a {
+                display: block;
+                color: white;
+                padding: 16px;
+                text-decoration: none;
+            }
+
+                .sidebar a.active {
+                    background-color: #2e52c8;
+                    color: white;
+                }
+
+                .sidebar a:hover:not(.active) {
+                    background-color: #64a8db;
+                    color: white;
+                }
+
+        div.content {
+            margin-left: 200px;
+            padding: 1px 16px;
+        }
+
+        div.queue {
+            padding: 5px;
+        }
+
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+                .sidebar a {
+                    float: left;
+                }
+
+            div.content {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }
+        /* Container holding the image and the text */
+.container {
+  position: relative;
+  text-align: center;
+  color: white;  
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  vertical-align: top;
+}
+
+.Title {
+    position: absolute;
+    bottom: 267px;
+    left: 145px;
+    font-family: "Lato", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: black
+}
+
+.Category {
+    position: absolute;
+    bottom: 210px;
+    left: 225px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+
+.Urgency {
+    position: absolute;
+    bottom: 153px;
+    left: 225px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+
+.Domain {
+    position: absolute;
+    bottom: 95px;
+    left: 225px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+
+.Name {
+    position: absolute;
+    bottom: 39px;
+    left: 225px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+
+.CreationDate {
+    position: absolute;
+    bottom: 210px;
+    left: 761px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+
+.StartDate {
+    position: absolute;
+    bottom: 153px;
+    left: 761px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+
+.EstimatedCompletion {
+    position: absolute;
+    bottom: 95px;
+    left: 761px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+
+.IsInProcess {
+    position: absolute;
+    bottom: 39px;
+    left: 761px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+.Priority {
+    position: absolute;
+    bottom: 17px;
+    left: 1205px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+.menubutton {
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    border: 4px solid black;
+}
+.stubtable {
+    position: relative;
+    bottom: 0px;
+    left: 70px;
+}
+.divColumn {
+    display: table-cell;
+    padding: 0px 2px;
+}
+
+    </style>
+<body>
+    <div class="sidebar">
+        <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:175px;height:175px;">
+        <a class="menubutton" href="/">Home</a>
+        <a class="menubutton" href="profile">Profile</a>
+        <a class="menubutton" href="organization">Add Organization</a>
+        <a class="menubutton" href="createstub">Create Stub</a>
+        <a class="menubutton" href="">Settings</a>
+        <a class="menubutton" href="login">Sign Out</a>
+    </div>
+    <div class="content">
+        <div class="queue">
+            <div class="column">
+                <nav>
+                    <label for="touch"><span>Which Collection Of Stubs?</span></label>               
+                    <input type="checkbox" id="touch">                   
+                    <ul class="slide">
+                      <li><a href="home1">Stub In Process</a></li> 
+                      <li><a href="home2">Received Stubs</a></li>
+                      <li><a href="home3">Sent Stubs</a></li>
+                    </ul>                  
+                  </nav> 
+                  <tr style="padding: 10px;" class="">
+                  <td class="td2">
+                      <a>&nbsp;<a/>
+                  </td>
+                  </tr> 
+            </div>
+        </div>
+    </div>
+    <div class="content">
+    <table cellspacing="0" class="stubtable">
+        {% for i in stubs %}
+        <tr style="padding: 10px;" class="">
+          <td class="td2">
+            <div id="test" class="container">
+                {% if i.Urgency == "Immediate" %} <img style="display: block;" src="{% static 'images/Stub5.png' %}" width="1250"> {% endif %}
+                {% if i.Urgency == "Highly Important" %} <img style="display: block;" src="{% static 'images/Stub4.png' %}" width="1250"> {% endif %}
+                {% if i.Urgency == "Important" %} <img style="display: block;" src="{% static 'images/Stub3.png' %}" width="1250"> {% endif %}
+                {% if i.Urgency == "Somewhat Important" %} <img style="display: block;" src="{% static 'images/Stub2.png' %}" width="1250"> {% endif %}
+                {% if i.Urgency == "When You Have Time" %} <img style="display: block;" src="{% static 'images/Stub1.png' %}" width="1250"> {% endif %}
+                <div class="Title">{{i.Title}}</div>
+                <div class="Category">{{i.Category}}</div>
+                <div class="Urgency">{{i.Urgency}}</div>
+                <div class="Domain">{{i.Domain}}</div>
+                <div class="Name">{{i.RecipientUserFileID.Name}}</div>
+                <div class="CreationDate">{{i.CreationDate}}</div>
+                <div class="StartDate">{{i.StartDate}}</div>
+                <div class="EstimatedCompletion"><div class="divColumn">{{i.EstimatedCompletionTime}}</div><div class="divColumn">{{i.EstimatedCompletionTimeUOM}}</div></div>
+                <div class="IsInProcess">{{i.InProcess}}</div>
+                <div class="Priority">{{i.PriorityInQueue}}</div>
+                <button class="stubbtn">View Stub</button>
+              </div>                           
+            </td>
+        </tr>
+        <tr style="padding: 10px;" class="">
+        <td class="td2">
+            <a>&nbsp;<a/>
+        </td>
+        </tr>        
+        {% endfor %}                
+    </table>
+    </div>
+</body>
+</html>
