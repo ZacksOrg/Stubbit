@@ -64,6 +64,13 @@
             padding: 0 8px;
         }
 
+        .pic-column {
+            float: left;
+            width: 100%;
+            padding: 5px;
+            margin: 20px;
+        }
+
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
             border-radius: 5px;
@@ -126,25 +133,33 @@
                 Stubbit hopes to not only replace the current bug tracking systems within organizations, but also the countless emails that are sent back and forth detailing requests like issues, bugs, improvements, and more–
                 these types of communication items are a frequent pattern in every business and can be organized in a powerful way using Stubbit.
             </p>
-            <p style="line-height: 1.6;">
-                Stubbit allows each user to create stubs for the other users in an organization–which work similar to
-                support tickets–regardless of whether or not he/she is a developer for the organization.
-                Users will be able to view issued and received stubs, update stubs with important metadata
-                such as estimated completion time, and complete stubs. The web application hopes to redesign
-                the processes that organization members follow to create requests with each other.
-                Typically, outside of other issue tracking/bug tracking software, an email is sent to a coworker/colleague
-                containing some sort of request. These requests can get lost in the recipient’s inbox,
-                become forgotten about, and easily become cluttered. Many individuals in the industry take these
-                emails and then place them into a self-organized document that helps them to stay on top of the different
-                items they need to work on for everyone else. Stubbit’s pioneering design handles all of this in an
-                structured manner. For the individuals like application developers and IT that maintain an application
-                and therefore use support tickets in place of these emails, Stubbit provides a better solution. These
-                traditional support tickets track bugs and systematically create a workflow for IT/development to work
-                on bugs to the system–but what about other requests like new features, upgrades, system improvements,
-                new menu items? Additionally, what about other data like how long the issue will take to fix or which issue
-                is being worked on by a given developer? Stubbit answers these questions.
-            </p>
-        </div>
+            <div class="row">
+                <div class="pic-column">
+                    <img class="stubbit-pics" src="{% static 'images/CreateStub.png' %}" style="width: 766px; height: 769px;" />
+                </div>
+                <div class="pic-column">
+                    <img class="stubbit-pics" src="{% static 'images/StubPic.png' %}" style="width: 766px; height: 328px;"/>
+                </div>
+                </div>
+                <p style="line-height: 1.6;">
+                    Stubbit allows each user to create stubs for the other users in an organization–which work similar to
+                    support tickets–regardless of whether or not he/she is a developer for the organization.
+                    Users will be able to view issued and received stubs, update stubs with important metadata
+                    such as estimated completion time, and complete stubs. The web application hopes to redesign
+                    the processes that organization members follow to create requests with each other.
+                    Typically, outside of other issue tracking/bug tracking software, an email is sent to a coworker/colleague
+                    containing some sort of request. These requests can get lost in the recipient’s inbox,
+                    become forgotten about, and easily become cluttered. Many individuals in the industry take these
+                    emails and then place them into a self-organized document that helps them to stay on top of the different
+                    items they need to work on for everyone else. Stubbit’s pioneering design handles all of this in an
+                    structured manner. For the individuals like application developers and IT that maintain an application
+                    and therefore use support tickets in place of these emails, Stubbit provides a better solution. These
+                    traditional support tickets track bugs and systematically create a workflow for IT/development to work
+                    on bugs to the system–but what about other requests like new features, upgrades, system improvements,
+                    new menu items? Additionally, what about other data like how long the issue will take to fix or which issue
+                    is being worked on by a given developer? Stubbit answers these questions.
+                </p>
+            </div>
     <h2 style="text-align:center">Group 6</h2>
     <div class="row">
         <div class="column">
