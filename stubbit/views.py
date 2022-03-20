@@ -69,6 +69,57 @@ def index(request):
 def home(request):
     all_stubs = Stub.objects.all()
     loggedInUser = Backend.GetLoggedInUserObj(request)    
+    stubs = None
+    requestType = 'home'
+
+    dict = {'stubs':stubs, 'requestType':requestType}
+    return render(request, 'home_new.html', dict)
+
+def home1(request):
+    all_stubs = Stub.objects.all()
+    loggedInUser = Backend.GetLoggedInUserObj(request)    
+    stubs = None
+    requestType = 'home1'
+    
+    try:        
+        stubs = all_stubs.filter(InProcess=True, RecipientUserFileID=loggedInUser.pk)     
+    except:
+        stubs = None
+
+    dict = {'stubs':stubs, 'requestType':requestType}
+    return render(request, 'home_new.html', dict)
+
+def home2(request):
+    all_stubs = Stub.objects.all()
+    loggedInUser = Backend.GetLoggedInUserObj(request)    
+    stubs = None
+    requestType = 'home2'
+    
+    try:        
+        stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')       
+    except:
+        stubs = None
+
+    dict = {'stubs':stubs, 'requestType':requestType}
+    return render(request, 'home_new.html', dict)
+
+def home3(request):
+    all_stubs = Stub.objects.all()
+    loggedInUser = Backend.GetLoggedInUserObj(request)    
+    stubs = None
+    requestType = 'home3'
+    
+    try:        
+        stubs = all_stubs.filter(IssuerUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')        
+    except:
+        stubs = None
+
+    dict = {'stubs':stubs, 'requestType':requestType}
+    return render(request, 'home_new.html', dict)
+
+def home_old(request):
+    all_stubs = Stub.objects.all()
+    loggedInUser = Backend.GetLoggedInUserObj(request)    
     stub_inprocess = None
     received_stubs = None
     sent_stubs = None
