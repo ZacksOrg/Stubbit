@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    {% load static %}
+    <title>About Page</title>
+    
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #d5eced;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        p {
+            text-align: justify;
+            font-size: larger;
+        }
+
+        a {
+            color: white;
+            float: left;
+            margin-right: inherit;
+        }
+
+        a:hover {
+            color: grey;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 200px;
+            height: 250px;
+        }
+
+        .frame {
+            width: 224px;
+            border: 12px solid;
+            border-color: slategray;
+            background: #eee;
+            margin: auto;
+            
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+            margin: 8px;
+            background-color: #146bb7;
+            padding-top: 34px;
+        }
+
+        .about-section {
+            padding: 6px;
+            text-align: center;
+            background-color: #146bb7;
+            color: white;
+            font-size: x-large;
+
+        }
+
+        .about-row {
+            padding: 5px 250px 5px 250px;
+            margin: 20px;
+        }
+
+        .container {
+            padding: 0 16px;
+            color: white;
+        }
+
+            .container::after, .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+        .title {
+            color: white;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="about-section">
+        <a href="/">Back</a>
+        <h1>Stubbit</h1>
+        <p style="font-style: italic; text-align: center; font-size: smaller;">Redesigning Collaboration One Stub At A Time</p>
+    </div>
+        <div class="about-row">
+            <h2>What Is Stubbit?</h2>
+            <p style="line-height: 1.6;">
+                Introducing Stubbit: the revolutionizing website application that uniquely blends bug tracker software and community communication software into a transparent, inter-organization request application.
+                Stubbit hopes to not only replace the current bug tracking systems within organizations, but also the countless emails that are sent back and forth detailing requests like issues, bugs, improvements, and more–
+                these types of communication items are a frequent pattern in every business and can be organized in a powerful way using Stubbit.
+            </p>
+            <p style="line-height: 1.6;">
+                Stubbit allows each user to create stubs for the other users in an organization–which work similar to
+                support tickets–regardless of whether or not he/she is a developer for the organization.
+                Users will be able to view issued and received stubs, update stubs with important metadata
+                such as estimated completion time, and complete stubs. The web application hopes to redesign
+                the processes that organization members follow to create requests with each other.
+                Typically, outside of other issue tracking/bug tracking software, an email is sent to a coworker/colleague
+                containing some sort of request. These requests can get lost in the recipient’s inbox,
+                become forgotten about, and easily become cluttered. Many individuals in the industry take these
+                emails and then place them into a self-organized document that helps them to stay on top of the different
+                items they need to work on for everyone else. Stubbit’s pioneering design handles all of this in an
+                structured manner. For the individuals like application developers and IT that maintain an application
+                and therefore use support tickets in place of these emails, Stubbit provides a better solution. These
+                traditional support tickets track bugs and systematically create a workflow for IT/development to work
+                on bugs to the system–but what about other requests like new features, upgrades, system improvements,
+                new menu items? Additionally, what about other data like how long the issue will take to fix or which issue
+                is being worked on by a given developer? Stubbit answers these questions.
+            </p>
+        </div>
+    <h2 style="text-align:center">Group 6</h2>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="frame">
+                    <img src="{% static 'images/Jacob' %}">
+                </div>
+                <div class="container">
+                    <h3>Jacob Hamade</h3>
+                    <p class="title">Computer Science Major</p>
+                    <p style="line-height: 1.6;">
+                        Database Developer for Dominion Technologies Group in Roseville, MI.
+                        Plan to also get a Bachelor's in Accounting to further my career.
+                        I have been object-oriented programming for 15 years but this is the first website I have helped create without a website builder like Weebly.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="frame">
+                    <img src="{% static 'images/Thomas' %}">
+                </div>
+                    <div class="container">
+                        <h3>Thomas Wilberding</h3>
+                        <p class="title">Computer Science Major</p>
+                        <p style="line-height: 1.6;">
+                            Bicycle Mechanic and Assembler for Assenmacher's Bike Shop Grand Blanc, MI.
+                            Plan to get into the IT/CyberSecurity field.
+                            I have experience in object-oriented programing and have developed a couple of websites including this one, some using wordpress.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="frame">
+                    <img src="{% static 'images/Scan_Pic0003 (2).jpg' %}">
+                </div>
+                    <div class="container">
+                        <h3>Zack Moody</h3>
+                        <p class="title">Computer Science Major</p>
+                        <p style="line-height: 1.6;">
+                            Laborer for City of Fraser Department of Public Works.
+                            Interested in the IT field with an emphasis on system
+                            and network administration. I have been programming for a few years
+                            and this is the second website that I have helped develop.
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+</html>
