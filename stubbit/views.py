@@ -198,8 +198,8 @@ def loginwelcome(request):
     messages.success(request, "Your credentials were authenticated successfully. Welcome to Stubbit!")
     return render(request, 'message_homeredirect.html')
 
-def addOrganizationSuccess(request):
-    messages.success(request, "Adding that Organization was successful!")
+def addOrganizationSuccess(request, context={}):
+    messages.success(request, "Adding that Organization was successful! The generated license key for the organization is: " + License.objects.last().LicenseContent)
     return render(request, 'message_homeredirect.html')
 
 def addStubSuccess(request):
@@ -217,7 +217,7 @@ def AddOrganization(request):
         form = OrganizationForm(request.POST)
         if form.is_valid():
             form.save()
-            Backend.AddLicenseForMostRecentOrganizationRow(request)
+            newLicense = Backend.AddLicenseForMostRecentOrganizationRow(request)
             return redirect('/addOrganization_message_homeredirect/')
 
     context = {'form':form}

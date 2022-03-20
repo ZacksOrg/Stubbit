@@ -92,14 +92,6 @@ class Stub(models.Model):
     def __str__(self):
         return "\nStub Record with Primary Key = {PrimaryKey}\n--------------------------------------\nTitle: {Title}\nOverview: {Overview}\nCategory: {Category}\nUrgency: {Urgency}\nDomain: {Domain}\nDeveloperUserFileID: {RecipientUserFileID}\nStartDate: {StartDate}\nEstimatedCompletionTime: {EstimatedCompletionTime}\nEstimatedCompletionTimeUOM: {EstimatedCompletionTimeUOM}\nPriorityInQueue: {PriorityInQueue}\nInProcess: {InProcess}\nCompleted: {Completed}\nCreationDate: {CreationDate}".format(PrimaryKey=self.pk, Title=self.Title, Overview=self.Overview, Category=self.Category, Urgency=self.Urgency, Domain=self.Domain, RecipientUserFileID=self.RecipientUserFileID.pk, StartDate=self.StartDate, EstimatedCompletionTime=self.EstimatedCompletionTime, EstimatedCompletionTimeUOM=self.EstimatedCompletionTimeUOM, PriorityInQueue=self.PriorityInQueue, InProcess=self.InProcess, Completed=self.Completed, CreationDate=self.CreationDate)
 
-class StubAttachment(models.Model):
-    StubID = models.ForeignKey(Stub, on_delete=models.CASCADE)
-    TotalSize = models.FloatField()
-    CompressedSize = models.FloatField()
-    FileServerPath = models.CharField(max_length=255)
-    def __str__(self):
-        return "\nStub Attachment record with Primary Key = {PrimaryKey}\n--------------------------------------\nStubID: {StubID}\nTotalSize: {TotalSize}\nCompressedSize: {CompressedSize}\nFileServerPath: {FileServerPath}".format(PrimaryKey=self.pk, StubID=self.StubID.pk, TotalSize=self.TotalSize, CompressedSize=self.CompressedSize, FileServerPath=self.FileServerPath)
-
 class tbl_Authentication(models.Model):
     Empcode = models.IntegerField()
     username = models.CharField(max_length=50,default='')
