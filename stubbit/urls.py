@@ -15,5 +15,6 @@ urlpatterns = [
     path("login_message_homeredirect/", views.loginwelcome, name="loginwelcome"),
     path("addOrganization_message_homeredirect/", views.addOrganizationSuccess, name="addOrganizationSuccess"),
     path("createStub_message_homeredirect/", views.addStubSuccess, name="addStubSuccess"),
-    path("signupsuccess/", views.signupsuccess, name="signupsuccess")
+    path("signupsuccess/", views.signupsuccess, name="signupsuccess"),
+    path("about/", views.about, name="about")
 ]
