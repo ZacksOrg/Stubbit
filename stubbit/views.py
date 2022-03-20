@@ -188,3 +188,6 @@ def createstub(request):
         newstub.save()
         return redirect('/createStub_message_homeredirect/')
     return render(request, 'createstub.html', context)
+
+def about(request):
+    return render(request, 'about.html')

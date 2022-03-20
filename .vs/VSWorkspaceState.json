@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\mysite",
     "\\stubbit",
-    "\\stubbit\\migrations",
-    "\\stubbit\\templates"
+    "\\stubbit\\templates",
+    "\\stubbit\\templates\\main"
   ],
-  "SelectedNode": "\\stubbit\\views.py",
+  "SelectedNode": "\\stubbit\\templates\\organization.html",
   "PreviewInSolutionExplorer": false
 }
