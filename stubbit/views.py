@@ -7,53 +7,8 @@ from .models import *
 from .backend import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, OrganizationForm
-
 from django.contrib.messages import *
-
 from .forms import CreateUserForm
-from django.contrib import messages
-
-def index(request):
-    outputHTTP_string = ""
-
-    Backend.WipeStubAttachments()
-    Backend.WipeStubs()
-    Backend.WipeUserMetas()
-    Backend.WipeUserPasses()
-    Backend.WipeUsers()
-    Backend.WipeOrganizations()
-    Backend.WipeLicenses()
-
-    Backend.CreateTestLicenses()
-    Backend.CreateTestOrganizations()
-    Backend.CreateTestUsers()
-    Backend.CreateTestUserPasses()
-    Backend.CreateTestUserMetas()
-    Backend.CreateTestStubs()
-    Backend.CreateTestStubAttachments()
-
-    outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
-
-    return HttpResponse(outputHTTP_string, content_type="text/plain")
-
-def home(request):
-
-    Backend.WipeStubAttachments()
-    Backend.WipeStubs()
-    Backend.WipeUserMetas()
-    Backend.WipeUserPasses()
-    Backend.WipeUsers()
-    Backend.WipeOrganizations()
-    Backend.WipeLicenses()
-
-    Backend.CreateTestLicenses()
-    Backend.CreateTestOrganizations()
-    Backend.CreateTestUsers()
-    Backend.CreateTestUserPasses()
-    Backend.CreateTestUserMetas()
-    Backend.CreateTestStubs()
-    Backend.CreateTestStubAttachments()
-
 from django.contrib import messages
 import time
 
@@ -62,84 +17,102 @@ def refresh(request):
     return HttpResponse("Database Refresh Complete", content_type="text/plain")
 
 def index(request):
-    outputHTTP_string = ""
-    outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
-    return HttpResponse(outputHTTP_string, content_type="text/plain")
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        outputHTTP_string = ""
+        outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
+        return HttpResponse(outputHTTP_string, content_type="text/plain")
 
 def home(request):
-    all_stubs = Stub.objects.all()
-    loggedInUser = Backend.GetLoggedInUserObj(request)    
-    stubs = None
-    requestType = 'home'
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        all_stubs = Stub.objects.all()
+        loggedInUser = Backend.GetLoggedInUserObj(request)    
+        stubs = None
+        requestType = 'home'
 
-    dict = {'stubs':stubs, 'requestType':requestType}
-    return render(request, 'home_new.html', dict)
+        dict = {'stubs':stubs, 'requestType':requestType}
+        return render(request, 'home_new.html', dict)
 
 def home1(request):
-    all_stubs = Stub.objects.all()
-    loggedInUser = Backend.GetLoggedInUserObj(request)    
-    stubs = None
-    requestType = 'home1'
-    
-    try:        
-        stubs = all_stubs.filter(InProcess=True, RecipientUserFileID=loggedInUser.pk)     
-    except:
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        all_stubs = Stub.objects.all()
+        loggedInUser = Backend.GetLoggedInUserObj(request)    
         stubs = None
+        requestType = 'home1'
+        
+        try:        
+            stubs = all_stubs.filter(InProcess=True, RecipientUserFileID=loggedInUser.pk)     
+        except:
+            stubs = None
 
-    dict = {'stubs':stubs, 'requestType':requestType}
-    return render(request, 'home_new.html', dict)
+        dict = {'stubs':stubs, 'requestType':requestType}
+        return render(request, 'home_new.html', dict)
 
 def home2(request):
-    all_stubs = Stub.objects.all()
-    loggedInUser = Backend.GetLoggedInUserObj(request)    
-    stubs = None
-    requestType = 'home2'
-    
-    try:        
-        stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')       
-    except:
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        all_stubs = Stub.objects.all()
+        loggedInUser = Backend.GetLoggedInUserObj(request)    
         stubs = None
+        requestType = 'home2'
+        
+        try:        
+            stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')       
+        except:
+            stubs = None
 
-    dict = {'stubs':stubs, 'requestType':requestType}
-    return render(request, 'home_new.html', dict)
+        dict = {'stubs':stubs, 'requestType':requestType}
+        return render(request, 'home_new.html', dict)
 
 def home3(request):
-    all_stubs = Stub.objects.all()
-    loggedInUser = Backend.GetLoggedInUserObj(request)    
-    stubs = None
-    requestType = 'home3'
-    
-    try:        
-        stubs = all_stubs.filter(IssuerUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')        
-    except:
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        all_stubs = Stub.objects.all()
+        loggedInUser = Backend.GetLoggedInUserObj(request)    
         stubs = None
+        requestType = 'home3'
+        
+        try:        
+            stubs = all_stubs.filter(IssuerUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')        
+        except:
+            stubs = None
 
-    dict = {'stubs':stubs, 'requestType':requestType}
-    return render(request, 'home_new.html', dict)
+        dict = {'stubs':stubs, 'requestType':requestType}
+        return render(request, 'home_new.html', dict)
 
 def home_old(request):
-    all_stubs = Stub.objects.all()
-    loggedInUser = Backend.GetLoggedInUserObj(request)    
-    stub_inprocess = None
-    received_stubs = None
-    sent_stubs = None
-    
-    try:        
-        stub_inprocess = all_stubs.filter(InProcess=True).get(RecipientUserFileID=loggedInUser.pk)
-    except:
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        all_stubs = Stub.objects.all()
+        loggedInUser = Backend.GetLoggedInUserObj(request)    
         stub_inprocess = None
-        
-    try:        
-        received_stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk)
-    except:
         received_stubs = None
-        
-    try:        
-        sent_stubs = all_stubs.filter(IssuerUserFileID=loggedInUser.pk)
-    except:
         sent_stubs = None
-    dict = {'received_stubs':received_stubs, 'sent_stubs':sent_stubs, 'stub_inprocess':stub_inprocess}
-    return render(request, 'home.html', dict)
+        
+        try:        
+            stub_inprocess = all_stubs.filter(InProcess=True).get(RecipientUserFileID=loggedInUser.pk)
+        except:
+            stub_inprocess = None
+            
+        try:        
+            received_stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk)
+        except:
+            received_stubs = None
+            
+        try:        
+            sent_stubs = all_stubs.filter(IssuerUserFileID=loggedInUser.pk)
+        except:
+            sent_stubs = None
+        dict = {'received_stubs':received_stubs, 'sent_stubs':sent_stubs, 'stub_inprocess':stub_inprocess}
+        return render(request, 'home.html', dict)
 
 def signup(request):
     if request.method == 'POST' :
@@ -151,12 +124,10 @@ def signup(request):
         password1 = request.POST['password1']
         licenseKey = request.POST['license_key']
         department = request.POST['department']
-#Database Username is a SQL Queries to see if it has been taken
         if not Backend.Check_UserName_Availability(username):
             messages.error(request, "Username already taken")
         else:
             if password1 == password2:
-#All data needs to be taken and place into the Database here
                 try:
                     licenseValue = License.objects.get(LicenseContent=licenseKey)
                 except Exception as identifier:
@@ -179,8 +150,15 @@ def signupsuccess(request):
     messages.success(request, "You have signed up successfully!")
     return render(request, 'signupsuccess.html')
 
-def login(request):
+def stubbitlogout(request):
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        Backend.SignUserOut(request)
+        messages.success(request, "Thank you for using Stubbit, you have been successfully logged out.")
+        return render(request, 'signupsuccess.html')
 
+def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -207,38 +185,47 @@ def addStubSuccess(request):
     return render(request, 'message_homeredirect.html')
 
 def profile(request):
-    loggedInUser = Backend.GetLoggedInUserObj(request)
-    context = {'loggedInUser':loggedInUser}
-    return render(request,'profile.html', context)
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        loggedInUser = Backend.GetLoggedInUserObj(request)
+        context = {'loggedInUser':loggedInUser}
+        return render(request,'profile.html', context)
 
 def AddOrganization(request):
-    form = OrganizationForm()
-    if request.method == 'POST':
-        form = OrganizationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            newLicense = Backend.AddLicenseForMostRecentOrganizationRow(request)
-            return redirect('/addOrganization_message_homeredirect/')
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        form = OrganizationForm()
+        if request.method == 'POST':
+            form = OrganizationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                newLicense = Backend.AddLicenseForMostRecentOrganizationRow(request)
+                return redirect('/addOrganization_message_homeredirect/')
 
-    context = {'form':form}
-    return render(request, 'organization.html', context)
+        context = {'form':form}
+        return render(request, 'organization.html', context)
 
 def createstub(request):
-    loggedInUser = Backend.GetLoggedInUserObj(request)
-    allDevelopers = UserFile.objects.all()
-    context = {'allDevelopers':allDevelopers}
-    if request.method == 'POST' :
-        stubtitle = request.POST['stubTitle']
-        stuboverview = request.POST['stubOverview']
-        stubcategory = request.POST['stubCategory']
-        stuburgency = request.POST['stubUrgency']
-        stubdomain = request.POST['stubDomain']
-        developer = request.POST['developer']
-        dev = UserFile.objects.get(Username=developer)
-        newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID_id=loggedInUser.pk, RecipientUserFileID_id=dev.pk, StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=False, Completed=False, CreationDate=timezone.now())
-        newstub.save()
-        return redirect('/createStub_message_homeredirect/')
-    return render(request, 'createstub.html', context)
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        loggedInUser = Backend.GetLoggedInUserObj(request)
+        allDevelopers = UserFile.objects.all()
+        context = {'allDevelopers':allDevelopers}
+        if request.method == 'POST' :
+            stubtitle = request.POST['stubTitle']
+            stuboverview = request.POST['stubOverview']
+            stubcategory = request.POST['stubCategory']
+            stuburgency = request.POST['stubUrgency']
+            stubdomain = request.POST['stubDomain']
+            developer = request.POST['developer']
+            dev = UserFile.objects.get(Username=developer)
+            newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID_id=loggedInUser.pk, RecipientUserFileID_id=dev.pk, StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=False, Completed=False, CreationDate=timezone.now())
+            newstub.save()
+            return redirect('/createStub_message_homeredirect/')
+        return render(request, 'createstub.html', context)
 
 def about(request):
     return render(request, 'about.html')
