@@ -398,13 +398,17 @@ span::after {
                 <div class="EstimatedCompletion"><div class="divColumn">{{i.EstimatedCompletionTime}}</div><div class="divColumn">{{i.EstimatedCompletionTimeUOM}}</div></div>
                 <div class="IsInProcess">{{i.InProcess}}</div>
                 <div class="Priority">{{i.PriorityInQueue}}</div>
-                <button class="stubbtn">View Stub</button>
-              </div>                           
+                <form method="post" action="/view/">
+                    {% csrf_token %}
+                    <input hidden="True" type="text"   name="stubId" value="{{i.id}}"/>
+                    <button type="submit" class="stubbtn">View Stub</button>
+                </form>
+                </div>                           
             </td>
         </tr>
         <tr style="padding: 10px;" class="">
         <td class="td2">
-            <a>&nbsp;<a/>
+            <a>&nbsp;</a>
         </td>
         </tr>        
         {% endfor %}                

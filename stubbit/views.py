@@ -13,6 +13,7 @@ from django.contrib.messages import *
 from .forms import CreateUserForm
 from django.contrib import messages
 
+StubId = ''
 def index(request):
     outputHTTP_string = ""
 
@@ -85,7 +86,6 @@ def home1(request):
         stubs = all_stubs.filter(InProcess=True, RecipientUserFileID=loggedInUser.pk)     
     except:
         stubs = None
-
     dict = {'stubs':stubs, 'requestType':requestType}
     return render(request, 'home_new.html', dict)
 
@@ -99,7 +99,6 @@ def home2(request):
         stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')       
     except:
         stubs = None
-
     dict = {'stubs':stubs, 'requestType':requestType}
     return render(request, 'home_new.html', dict)
 
@@ -113,7 +112,6 @@ def home3(request):
         stubs = all_stubs.filter(IssuerUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')        
     except:
         stubs = None
-
     dict = {'stubs':stubs, 'requestType':requestType}
     return render(request, 'home_new.html', dict)
 
@@ -239,3 +237,41 @@ def createstub(request):
         newstub.save()
         return redirect('/createStub_message_homeredirect/')
     return render(request, 'createstub.html', context)
+
+def edit(request):
+    global StubId
+    if request.method == 'POST':
+        StubId = request.POST['stubId']
+    stub = Stub.objects.get(id=StubId)
+    context = {'stub':stub}
+    return render(request, 'edit.html', context)
+
+def view(request):
+    global StubId
+    if request.method == 'POST':
+        StubId = request.POST['stubId']
+    stub = Stub.objects.get(id=StubId)
+    context = {'stub':stub}
+    return render(request, 'view.html', context)
+
+def updatesuccess(request):
+    global StubId
+    stub = Stub.objects.get(id=StubId)
+    if request.method == 'POST':
+        inProcess = request.POST.get('inProcess')
+        completed = request.POST.get('completed')
+        if inProcess == None:
+            inProcess = stub.InProcess
+        if completed == None:
+            completed = stub.Completed
+        Stub.objects.filter(id=StubId).update(InProcess = inProcess)
+        Stub.objects.filter(id=StubId).update(Completed = completed)
+    messages.success(request, "Stub was successfully updated!")
+    return render(request, 'updatesuccess.html')
+
+def deletesuccess(request):
+    global StubId
+    stub = Stub.objects.get(id=StubId)
+    stub.delete()
+    messages.success(request, "Stub was successfully deleted!")
+    return render(request, 'deletesuccess.html')
