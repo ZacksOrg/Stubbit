@@ -144,14 +144,14 @@ form button:hover {
   <input type="textbox" name="startdate" placeholder="MM/DD/YYYY"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 20%;"></input>
   <label align="left" class="column" style="position: relative; left: 2%;">Est. Completion Time</label>
   <label align="left" class="column" style="position: relative; left: 20%; padding-right:60%">Priority</label>
-  <input type="textbox" name="estcompletiontime" placeholder="{{ stub.EstimatedCompletionTime }}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 2%; width:8%"></input>
-  <input type="textbox" name="estcompletiontimeunits" placeholder="{{stub.EstimatedCompletionTimeUOM}}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 0.25%; width:15%;"></input>
-  <input type="textbox" name="priority" placeholder="{{ stub.PriorityInQueue }}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 27.5%;"></input>
+  <input type="textbox" name="estcompletiontime" placeholder="{{ stub.EstimatedCompletionTime }}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 2%; width:12%"></input>
+  <input type="textbox" name="estcompletiontimeunits" placeholder="{{stub.EstimatedCompletionTimeUOM}}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 0.25%; width:20%;"></input>
+  <input type="textbox" name="priority" placeholder="{{ stub.PriorityInQueue }}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 18.5%;"></input>
 </div> 
 <label>Developer:</label>
 <div class="text">{{ stub.RecipientUserFileID.FirstName }} {{ stub.RecipientUserFileID.LastName }}</div>
 <div class="row">
-  <label align="left"style="position: relative; left: 2%;"class="column">InProcess:</label>
+  <label align="left"style="position: relative; left: 2%; padding-right: 35%;"class="column">InProcess:</label>
   {% if stub.InProcess == False %}
   <input type="checkbox" name="inProcess" align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 25px;" value = "True">&nbsp;</input> 
   {% else %}
@@ -159,11 +159,11 @@ form button:hover {
   {% endif %}
 </div>
 <div class="row">
-  <label align="left"style="position: relative; left: 2%;"class="column">Completed:</label>
+  <label align="left"style="position: relative; left: 2%; padding-right: 35%;"class="column">Completed:</label>
   {% if stub.Completed == False %}
-  <input type="checkbox" name="completed" align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 29px;" value = "True">&nbsp;</input> 
+  <input type="checkbox" name="completed" align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 25px;" value = "True">&nbsp;</input> 
   {% else %}
-  <input type="checkbox" name="completed" align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 29px;" checked="checked" value = "True">&nbsp;</input> 
+  <input type="checkbox" name="completed" align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 25px;" checked="checked" value = "True">&nbsp;</input> 
   {% endif %}
 </div>
 

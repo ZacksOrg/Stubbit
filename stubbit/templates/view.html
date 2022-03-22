@@ -141,19 +141,19 @@ form button:hover {
 <label>Developer:</label>
 <div class="text">{{ stub.RecipientUserFileID.FirstName }} {{ stub.RecipientUserFileID.LastName }}</div>  
 <div class="row">
-  <label align="left"style="position: relative; left: 2%;"class="column">InProcess:</label>
+  <label align="left"style="position: relative; left: 2%; padding-right: 35%;"class="column">InProcess:</label>
   {% if stub.InProcess == False %}
-  <div align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 29px;">&nbsp;</div> 
+  <div align="left"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 29px;">&nbsp;</div> 
   {% else %}
-  <div align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 29px;">&nbsp;</div> 
+  <div align="left"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 29px;">&nbsp;</div> 
   {% endif %}
 </div>
 <div class="row">
-  <label align="left"style="position: relative; left: 2%;"class="column">Completed:</label>
+  <label align="left"style="position: relative; left: 2%; padding-right: 35%;"class="column">Completed:</label>
   {% if stub.Completed == False %}
-  <div align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 29px;">&nbsp;</div> 
+  <div align="left"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 29px;">&nbsp;</div> 
   {% else %}
-  <div align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 29px;">&nbsp;</div> 
+  <div align="left"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 29px;">&nbsp;</div> 
   {% endif %}
 </div>
 <input hidden="True" type="text"  name="stubId" value="{{stub.id}}"/>
