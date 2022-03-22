@@ -11,6 +11,8 @@ from django.contrib.messages import *
 from .forms import CreateUserForm
 from django.contrib import messages
 import time
+from django.utils import timezone
+import datetime
 
 def refresh(request):
     Backend.DatabaseRefreshWithTestData()
@@ -253,12 +255,79 @@ def updatesuccess(request):
     if request.method == 'POST':
         inProcess = request.POST.get('inProcess')
         completed = request.POST.get('completed')
-        if inProcess == None:
-            inProcess = stub.InProcess
-        if completed == None:
-            completed = stub.Completed
-        Stub.objects.filter(id=StubId).update(InProcess = inProcess)
-        Stub.objects.filter(id=StubId).update(Completed = completed)
+        startdate = request.POST.get('startdate')
+        estcompletiontime = request.POST.get('estcompletiontime')
+        priority = request.POST.get('priority')
+        estcompletiontimeunits = request.POST.get('estcompletiontimeunits')
+        if inProcess == None and completed == None:
+            inProcess = False
+            completed = False
+            Stub.objects.filter(id=StubId).update(InProcess = inProcess)
+            Stub.objects.filter(id=StubId).update(Completed = completed)
+        elif inProcess != None and completed != None:
+            inProcess = False
+            completed = True
+            Stub.objects.filter(id=StubId).update(InProcess = inProcess)
+            Stub.objects.filter(id=StubId).update(Completed = completed)
+        elif completed == None:
+            completed = False
+            Stub.objects.filter(id=StubId).update(InProcess = inProcess)
+            Stub.objects.filter(id=StubId).update(Completed = completed)
+        elif inProcess == None:
+            inProcess = False
+            Stub.objects.filter(id=StubId).update(InProcess = inProcess)
+            Stub.objects.filter(id=StubId).update(Completed = completed)
+        else:
+            Stub.objects.filter(id=StubId).update(InProcess = inProcess)
+            Stub.objects.filter(id=StubId).update(Completed = completed)
+
+        if startdate == '':
+            startdatetime = stub.StartDate
+        else:
+            try:
+                splitstartdate =startdate.split("/")
+                month = int(splitstartdate[0])
+                day = int(splitstartdate[1])
+                year = int(splitstartdate[2])
+                if month > 12 or day > 31 or year > 9999:
+                    messages.error(request, "You did not enter a valid date! Use the format MM/DD/YYYY!")
+                    return redirect('/edit/')
+                naive_time = datetime.time(datetime.datetime.now().hour,datetime.datetime.now().minute)
+                date = datetime.date(year,month,day)
+                naive_datetime = datetime.datetime.combine(date, naive_time)
+                startdatetime = timezone.make_aware(naive_datetime)
+                Stub.objects.filter(id=StubId).update(StartDate = startdatetime)
+            except:
+                messages.error(request, "You did not enter a valid date! Use the format MM/DD/YYYY!")
+                return redirect('/edit/')
+            
+        if estcompletiontime == '':
+            estcompletiontime = stub.EstimatedCompletionTime
+        else:
+            try:
+                Stub.objects.filter(id=StubId).update(EstimatedCompletionTime = estcompletiontime)
+            except:
+                messages.error(request, "You did not enter a valid completion time! Enter a number!")
+                return redirect('/edit/')
+       
+        if priority == '':
+            priority = stub.PriorityInQueue
+        else:    
+            try:
+                Stub.objects.filter(id=StubId).update(PriorityInQueue = priority)
+            except:
+                messages.error(request, "You did not enter a valid priority number! Enter a number 1 - 10!")
+                return redirect('/edit/')
+        
+        if estcompletiontimeunits == '':
+            estcompletiontimeunits = stub.EstimatedCompletionTimeUOM
+        else:   
+            try:
+                Stub.objects.filter(id=StubId).update(EstimatedCompletionTimeUOM = estcompletiontimeunits)
+            except:
+                messages.error(request, "You did not enter a valid completion time unit! Enter a days, hours, or minutes!")
+                return redirect('/edit/')
+
     messages.success(request, "Stub was successfully updated!")
     return render(request, 'updatesuccess.html')
 

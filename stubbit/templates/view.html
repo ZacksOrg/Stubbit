@@ -120,32 +120,40 @@ form button:hover {
   <div align="right" class="column" style="position: relative; left: 0px; top: 37px"><a href="/"style="color: white;">Back</a>  </div>
 </div>
 </header>
-<label>Stub Title:</label>
+<label>Title:</label>
 <div class="text">{{ stub.Title }}{{Views.StubTitle}}</div>
-<label>Stub Overview:</label>
+<label>Overview:</label>
 <div class="text">{{ stub.Overview }}</div>
-<label >Stub Category:</label>
-<div class="text">{{ stub.Category }}</div>
-<label >Stub Urgency:</label> 
-<div class="text">{{ stub.Urgency }}</div>
-<label>Stub Domain:</label>
-<div class="text">{{ stub.Domain }}</div>
+<div class="row">
+  <label align="left" class="column" style="position: relative; left: 2%;">Category:</label>
+  <label align="left" class="column" style="position: relative; left: 20%;">Urgency:</label>
+  <div align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 2%;">{{ stub.Category }}</div>
+  <div align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 20%;">{{ stub.Urgency }}</div>
+  <label align="left" class="column" style="position: relative; left: 2%;">Domain:</label>
+  <label align="left" class="column" style="position: relative; left: 20%;">Start Date</label>
+  <div align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 2%;">{{ stub.Domain }}</div>
+  <div align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 20%;">{{ stub.StartDate }}</div>
+  <label align="left" class="column" style="position: relative; left: 2%;">Est. Completion Time</label>
+  <label align="left" class="column" style="position: relative; left: 20%;">Priority</label>
+  <div align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 2%;">{{ stub.EstimatedCompletionTime }} {{stub.EstimatedCompletionTimeUOM}}</div>
+  <div align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 20%;">{{ stub.PriorityInQueue }}</div>
+</div>  
 <label>Developer:</label>
-<div class="text">{{ stub.RecipientUserFileID.FirstName }} {{ stub.RecipientUserFileID.LastName }}</div>
+<div class="text">{{ stub.RecipientUserFileID.FirstName }} {{ stub.RecipientUserFileID.LastName }}</div>  
 <div class="row">
   <label align="left"style="position: relative; left: 2%;"class="column">InProcess:</label>
   {% if stub.InProcess == False %}
-  <div align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 20%; top: 29px;">&nbsp;</div> 
+  <div align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 29px;">&nbsp;</div> 
   {% else %}
-  <div align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 20%;top: 29px;">&nbsp;</div> 
+  <div align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 29px;">&nbsp;</div> 
   {% endif %}
 </div>
 <div class="row">
   <label align="left"style="position: relative; left: 2%;"class="column">Completed:</label>
   {% if stub.Completed == False %}
-  <div align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 20%; top: 29px;">&nbsp;</div> 
+  <div align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 29px;">&nbsp;</div> 
   {% else %}
-  <div align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 20%;top: 29px;">&nbsp;</div> 
+  <div align="center"class = "column" style="width: 25px; height: 25px; background-color: #36b346; position: relative; right: 18%;top: 29px;">&nbsp;</div> 
   {% endif %}
 </div>
 <input hidden="True" type="text"  name="stubId" value="{{stub.id}}"/>
