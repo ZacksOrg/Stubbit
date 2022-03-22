@@ -7,6 +7,7 @@ urlpatterns = [
     path("home2", views.home2, name="home2"),
     path("home3", views.home3, name="home3"),
     path("signup/", views.signup, name="signup"),
+    path("stubbitlogout/", views.stubbitlogout, name="stubbitlogout"),
     path("profile/", views.profile, name="profile"),
     path("login/", views.login, name="login"),
     path("organization/", views.AddOrganization, name="organization"),
@@ -20,4 +21,5 @@ urlpatterns = [
     path("view/", views.view, name="view"),
     path("updatesuccess/", views.updatesuccess, name="updatesuccess"),
     path("deletesuccess/", views.deletesuccess, name="deletesuccess")
+    path("about/", views.about, name="about")
 ]

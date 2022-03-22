@@ -262,10 +262,6 @@ class Backend:
         newStub31.save()
         newStub32.save()
 
-    def CreateTestStubAttachments():
-        newStubAttachment = StubAttachment(StubID=Stub.objects.get(Title="Rounding Error"),TotalSize=1024, CompressedSize=1000, FileServerPath="/root/Folder1/File1.txt")
-        newStubAttachment.save()
-
     def PrintLicenses():
         outputString = ""
         for license in License.objects.all():
@@ -314,14 +310,6 @@ class Backend:
                 outputString+= ","
         return outputString
 
-    def PrintStubAttachments():
-        outputString= ""
-        for stubAttachment in StubAttachment.objects.all():
-            outputString+= stubAttachment.__str__()
-            if stubAttachment.pk != StubAttachment.objects.all()[StubAttachment.objects.all().count() - 1].pk:
-                outputString+= ","
-        return outputString
-
     def WipeLicenses():
         for license in License.objects.all():
             license.delete()
@@ -346,12 +334,7 @@ class Backend:
         for stub in Stub.objects.all():
             stub.delete()
 
-    def WipeStubAttachments():
-        for stubAttachment in StubAttachment.objects.all():
-            stubAttachment.delete()
-
     def DatabaseRefreshWithTestData():
-        Backend.WipeStubAttachments()
         Backend.WipeStubs()
         Backend.WipeUserMetas()
         Backend.WipeUserPasses()
@@ -365,7 +348,6 @@ class Backend:
         Backend.CreateTestUserPasses()
         Backend.CreateTestUserMetas()
         Backend.CreateTestStubs()
-        Backend.CreateTestStubAttachments()
 
     def LogInSuccess_UpdateUserMeta(username, request):
         client_ip, is_routable = get_client_ip(request)
@@ -376,13 +358,25 @@ class Backend:
         usermeta_obj.save()
 
     def GetLoggedInUserObj(request):
-        client_ip, is_routable = get_client_ip(request)
-        usermeta_obj = UserMeta.objects.order_by('-LastLogInDate').filter(LastIPAddress=client_ip).first()
-        timeSinceLastLogin = datetime.datetime.now(timezone.utc) - usermeta_obj.LastLogInDate
-        if (timeSinceLastLogin.seconds//60) < 60:
-            user_obj = UserFile.objects.get(id=usermeta_obj.UserFileID.pk)
-            return user_obj
-        return None
+        try:
+            client_ip, is_routable = get_client_ip(request)
+            usermeta_obj = UserMeta.objects.order_by('-LastLogInDate').filter(LastIPAddress=client_ip).first()
+            timeSinceLastLogin = datetime.datetime.now(timezone.utc) - usermeta_obj.LastLogInDate
+            if (timeSinceLastLogin.seconds//60) < 60:
+                user_obj = UserFile.objects.get(id=usermeta_obj.UserFileID.pk)
+                return user_obj
+            return None
+        except:
+            return None
+    
+    def SignUserOut(request):
+        user_obj = Backend.GetLoggedInUserObj(request)
+        try:
+            usermeta_obj = UserMeta.objects.get(UserFileID=user_obj)
+            usermeta_obj.LastIPAddress = ""
+            usermeta_obj.save()
+        except:
+            i = 0
 
     def GetNewLicenseString():
         newLicense = ""
@@ -403,3 +397,4 @@ class Backend:
         newLicense.save()
         addedOrganization.LicenseID = newLicense
         addedOrganization.save()
+        return newLicenseString
