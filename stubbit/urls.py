@@ -20,6 +20,6 @@ urlpatterns = [
     path("edit/", views.edit, name="edit"),
     path("view/", views.view, name="view"),
     path("updatesuccess/", views.updatesuccess, name="updatesuccess"),
-    path("deletesuccess/", views.deletesuccess, name="deletesuccess")
+    path("deletesuccess/", views.deletesuccess, name="deletesuccess"),
     path("about/", views.about, name="about")
 ]
