@@ -11,62 +11,10 @@ from django.contrib.messages import *
 from .forms import CreateUserForm
 from django.contrib import messages
 import time
-StubId = ''
-def index(request):
-    outputHTTP_string = ""
-
-    Backend.WipeStubAttachments()
-    Backend.WipeStubs()
-    Backend.WipeUserMetas()
-    Backend.WipeUserPasses()
-    Backend.WipeUsers()
-    Backend.WipeOrganizations()
-    Backend.WipeLicenses()
-
-    Backend.CreateTestLicenses()
-    Backend.CreateTestOrganizations()
-    Backend.CreateTestUsers()
-    Backend.CreateTestUserPasses()
-    Backend.CreateTestUserMetas()
-    Backend.CreateTestStubs()
-    Backend.CreateTestStubAttachments()
-
-    outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
-
-    return HttpResponse(outputHTTP_string, content_type="text/plain")
-
-def home(request):
-
-    Backend.WipeStubAttachments()
-    Backend.WipeStubs()
-    Backend.WipeUserMetas()
-    Backend.WipeUserPasses()
-    Backend.WipeUsers()
-    Backend.WipeOrganizations()
-    Backend.WipeLicenses()
-
-    Backend.CreateTestLicenses()
-    Backend.CreateTestOrganizations()
-    Backend.CreateTestUsers()
-    Backend.CreateTestUserPasses()
-    Backend.CreateTestUserMetas()
-    Backend.CreateTestStubs()
-    Backend.CreateTestStubAttachments()
-
-
-
 
 def refresh(request):
     Backend.DatabaseRefreshWithTestData()
     return HttpResponse("Database Refresh Complete", content_type="text/plain")
-
-def index(request):
-    if (Backend.GetLoggedInUserObj(request) == None):
-        return redirect('/login/')
-    else:
-        outputHTTP_string = ""
-        outputHTTP_string = Backend.PrintLicenses() + "\n\n\n" + Backend.PrintOrganizations() + "\n\n\n" + Backend.PrintUsers() + "\n\n\n" + Backend.PrintUserPasses() + "\n\n\n" + Backend.PrintUserMetas() + "\n\n\n" + Backend.PrintStubs() + "\n\n\n" + Backend.PrintStubAttachments()
-        return HttpResponse(outputHTTP_string, content_type="text/plain")
 
 def home(request):
     if (Backend.GetLoggedInUserObj(request) == None):
@@ -252,42 +200,51 @@ def AddOrganization(request):
         return render(request, 'organization.html', context)
 
 def createstub(request):
-    loggedInUser = Backend.GetLoggedInUserObj(request)
-    allDevelopers = UserFile.objects.all()
-    context = {'allDevelopers':allDevelopers}
     if (Backend.GetLoggedInUserObj(request) == None):
         return redirect('/login/')
     else:
         loggedInUser = Backend.GetLoggedInUserObj(request)
         allDevelopers = UserFile.objects.all()
         context = {'allDevelopers':allDevelopers}
-        if request.method == 'POST' :
-            stubtitle = request.POST['stubTitle']
-            stuboverview = request.POST['stubOverview']
-            stubcategory = request.POST['stubCategory']
-            stuburgency = request.POST['stubUrgency']
-            stubdomain = request.POST['stubDomain']
-            developer = request.POST['developer']
-            dev = UserFile.objects.get(Username=developer)
-            newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID_id=loggedInUser.pk, RecipientUserFileID_id=dev.pk, StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=False, Completed=False, CreationDate=timezone.now())
-            newstub.save()
-            return redirect('/createStub_message_homeredirect/')
-        return render(request, 'createstub.html', context)
+        if (Backend.GetLoggedInUserObj(request) == None):
+            return redirect('/login/')
+        else:
+            loggedInUser = Backend.GetLoggedInUserObj(request)
+            allDevelopers = UserFile.objects.all()
+            context = {'allDevelopers':allDevelopers}
+            if request.method == 'POST' :
+                stubtitle = request.POST['stubTitle']
+                stuboverview = request.POST['stubOverview']
+                stubcategory = request.POST['stubCategory']
+                stuburgency = request.POST['stubUrgency']
+                stubdomain = request.POST['stubDomain']
+                developer = request.POST['developer']
+                dev = UserFile.objects.get(Username=developer)
+                newstub = Stub(Title=stubtitle, Overview=stuboverview, Category=stubcategory, Urgency=stuburgency, Domain=stubdomain, IssuerUserFileID_id=loggedInUser.pk, RecipientUserFileID_id=dev.pk, StartDate=timezone.now(), EstimatedCompletionTime="1", EstimatedCompletionTimeUOM="Days", PriorityInQueue=1.0, InProcess=False, Completed=False, CreationDate=timezone.now())
+                newstub.save()
+                return redirect('/createStub_message_homeredirect/')
+            return render(request, 'createstub.html', context)
 
 def edit(request):
-    global StubId
-    if request.method == 'POST':
-        StubId = request.POST['stubId']
-    stub = Stub.objects.get(id=StubId)
-    context = {'stub':stub}
-    return render(request, 'edit.html', context)
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        global StubId
+        if request.method == 'POST':
+            StubId = request.POST['stubId']
+        stub = Stub.objects.get(id=StubId)
+        context = {'stub':stub}
+        return render(request, 'edit.html', context)
 
 def view(request):
-    global StubId
-    if request.method == 'POST':
-        StubId = request.POST['stubId']
-    stub = Stub.objects.get(id=StubId)
-    context = {'stub':stub}
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        global StubId
+        if request.method == 'POST':
+            StubId = request.POST['stubId']
+        stub = Stub.objects.get(id=StubId)
+        context = {'stub':stub}
     return render(request, 'view.html', context)
 
 def updatesuccess(request):
@@ -311,7 +268,6 @@ def deletesuccess(request):
     stub.delete()
     messages.success(request, "Stub was successfully deleted!")
     return render(request, 'deletesuccess.html')
-
 
 def about(request):
     return render(request, 'about.html')
