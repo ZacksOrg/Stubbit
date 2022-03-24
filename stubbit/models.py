@@ -82,7 +82,7 @@ class Stub(models.Model):
     Domain = models.CharField(max_length=20)
     IssuerUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="IssuerUserFileID")
     RecipientUserFileID = models.ForeignKey(UserFile, on_delete=models.CASCADE, related_name="RecipientUserFileID")
-    StartDate = models.DateTimeField(null=True)
+    StartDate = models.DateField(null=True)
     EstimatedCompletionTime = models.IntegerField(null=True)
     EstimatedCompletionTimeUOM = models.CharField(null=True, max_length=1)
     PriorityInQueue = models.FloatField(null=True)

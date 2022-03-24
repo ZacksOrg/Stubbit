@@ -292,11 +292,8 @@ def updatesuccess(request):
                 if month > 12 or day > 31 or year > 9999:
                     messages.error(request, "You did not enter a valid date! Use the format MM/DD/YYYY!")
                     return redirect('/edit/')
-                naive_time = datetime.time(datetime.datetime.now().hour,datetime.datetime.now().minute)
-                date = datetime.date(year,month,day)
-                naive_datetime = datetime.datetime.combine(date, naive_time)
-                startdatetime = timezone.make_aware(naive_datetime)
-                Stub.objects.filter(id=StubId).update(StartDate = startdatetime)
+                date = datetime.date(year, month, day)
+                Stub.objects.filter(id=StubId).update(StartDate = date)
             except:
                 messages.error(request, "You did not enter a valid date! Use the format MM/DD/YYYY!")
                 return redirect('/edit/')
