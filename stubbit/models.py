@@ -88,7 +88,7 @@ class Stub(models.Model):
     PriorityInQueue = models.FloatField(null=True)
     InProcess = models.BooleanField()
     Completed = models.BooleanField()
-    CreationDate = models.DateTimeField(auto_now_add=True)
+    CreationDate = models.DateField(auto_now_add=True)
     def __str__(self):
         return "\nStub Record with Primary Key = {PrimaryKey}\n--------------------------------------\nTitle: {Title}\nOverview: {Overview}\nCategory: {Category}\nUrgency: {Urgency}\nDomain: {Domain}\nDeveloperUserFileID: {RecipientUserFileID}\nStartDate: {StartDate}\nEstimatedCompletionTime: {EstimatedCompletionTime}\nEstimatedCompletionTimeUOM: {EstimatedCompletionTimeUOM}\nPriorityInQueue: {PriorityInQueue}\nInProcess: {InProcess}\nCompleted: {Completed}\nCreationDate: {CreationDate}".format(PrimaryKey=self.pk, Title=self.Title, Overview=self.Overview, Category=self.Category, Urgency=self.Urgency, Domain=self.Domain, RecipientUserFileID=self.RecipientUserFileID.pk, StartDate=self.StartDate, EstimatedCompletionTime=self.EstimatedCompletionTime, EstimatedCompletionTimeUOM=self.EstimatedCompletionTimeUOM, PriorityInQueue=self.PriorityInQueue, InProcess=self.InProcess, Completed=self.Completed, CreationDate=self.CreationDate)
 

@@ -65,7 +65,6 @@ span::after {
             margin: 0;
             font-family: "Lato", sans-serif;
             background-color: #d6dffb;
-            
           
         }
 
@@ -77,6 +76,7 @@ span::after {
             display: flex;
             margin-left: -5px;
             margin-right: -5px;
+            
         }
 
         .column {
@@ -85,6 +85,7 @@ span::after {
         }
 
         table {
+            transform: scale(0.97)
         }
 
         .quetbl {
@@ -136,7 +137,7 @@ span::after {
           position: absolute;
           height: 55px;
           width: 180px;
-          bottom: 141px;
+          bottom: 138px;
           left: -38px;
           -webkit-transform: rotate(270deg);
         }
@@ -192,7 +193,16 @@ span::after {
                 }
 
         div.content {
+
             margin-left: 200px;
+            
+            padding: 1px 16px;
+        }
+        div.stubtablediv {
+
+
+            margin-left: 200px;
+            margin-top: 0px;
             padding: 1px 16px;
         }
 
@@ -326,7 +336,7 @@ span::after {
 .Priority {
     position: absolute;
     bottom: 17px;
-    left: 1205px;
+    left: 1198px;
     font-family: "Lato", sans-serif;
     font-size: 20px;
     font-weight: 600;
@@ -366,7 +376,7 @@ span::after {
                     <label for="touch"><span>Which Collection Of Stubs?</span></label>               
                     <input type="checkbox" id="touch">                   
                     <ul class="slide">
-                      <li><a href="home1">Stub In Process</a></li> 
+                      <li><a href="home1">Stubs In Process</a></li> 
                       <li><a href="home2">Received Stubs</a></li>
                       <li><a href="home3">Sent Stubs</a></li>
                     </ul>                  
@@ -379,7 +389,7 @@ span::after {
             </div>
         </div>
     </div>
-    <div class="content">
+    <div class="stubtablediv">
     <table cellspacing="0" class="stubtable">
         {% for i in stubs %}
         <tr style="padding: 10px;" class="">
@@ -408,11 +418,8 @@ span::after {
                 </div>                           
             </td>
         </tr>
-        <tr style="padding: 10px;" class="">
-        <td class="td2">
-            <a>&nbsp;</a>
-        </td>
-        </tr>        
+        <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
+        <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
         {% endfor %}                
     </table>
     </div>

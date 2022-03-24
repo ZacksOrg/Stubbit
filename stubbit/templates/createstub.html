@@ -13,6 +13,7 @@
   padding: 0;
   margin: 0;
   height: 100%;
+  width: 100%;
 }
  
 body {
@@ -25,7 +26,7 @@ body {
 
 form {
   background: white;
-  width: 40%;
+  width: 45%;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
   font-family: lato;
   position: relative;
@@ -124,7 +125,7 @@ form button:hover {
   <div class="row">
     <div align="left" class="column" style="position: relative; left: 0px; top: 0px;"><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></div>  
     <div align="center" class="column" style="font-size: 1.8em; position: relative; left: 0px; top: 15px;">Create Stub</div>  
-    <div align="right" class="column" style="position: relative; left: 0px; top: 10px"><a href="/"style="color: white;">Back</a>  </div>
+    <div align="right" class="column" style="position: relative; left: 0px; top: 29px"><a href="/"style="color: white;">Back</a>  </div>
   </div>
   </header>
   {% for message in messages %}
@@ -147,25 +148,27 @@ form button:hover {
   border-radius: 3px;
   outline: none;
   border: 1px solid #ccc;"></textarea>
-  <label>Stub Category</label>
-  <label style = "margin-left: 193px">Stub Urgency</label>
- <select name="stubUrgency" id="stubUrgency"style = " display: inline;width: 46%;margin-left: 20px;padding: 5px 20px;font-size: 1em;border-radius: 3px;outline: none;border: 1px solid #ccc;">
+  <label>Stub Urgency</label>
+  <label style = "margin-left: 35%">Stub Category</label>
+ <select name="stubCategory" id="stubCategory"style = " display: inline;width: 46%;margin-left: 20px;padding: 5px 20px;font-size: 1em;border-radius: 3px;outline: none;border: 1px solid #ccc;">
     <option value="Bug">Bug</option>
     <option value="New Feature">New Feature</option>
     <option value="Upgrade">Upgrade</option>
     <option value="Improvement">Improvement</option>
     <option value="Suggestion">Suggestion</option>
     <option value="System Failure">System Failure</option>
+    <option value="Request">Request</option>
   </select>
-  <select name="stubCategory" id="stubCategory"style = " display: inline;width: 46%;margin-left: 20px;padding: 5px 20px;font-size: 1em;border-radius: 3px;outline: none;border: 1px solid #ccc;">
+  <select name="stubUrgency" id="stubUrgency"style = " display: inline;width: 46%;margin-left: 20px;padding: 5px 20px;font-size: 1em;border-radius: 3px;outline: none;border: 1px solid #ccc;">
+    <option value="Immediate">Immediate</option>
     <option value="Highly Important">Highly Important</option>
     <option value="Important">Important</option>
-    <option value="Some What Important">Somewhat Important</option>
-    <option value="When You Have Time">When You Have Time</option>
+    <option value="Somewhat Important">Somewhat Important</option>
+    <option value="When You Have Time">When You Have Time</option>    
   </select>
   <label>Stub Domain</label>
   <input type="text"   name="stubDomain" placeholder="Stub Domain" required="" />
-  <label>Developer</label>
+  <label>Recipient</label>
   <select name="developer" id="developer"style = " display: inline;width: 95%;margin-left: 20px;padding: 5px 20px;font-size: 1em;border-radius: 3px;outline: none;border: 1px solid #ccc;">
     {% for user in allDevelopers%}
     <option value= "{{user.Username}}">{{user.Username}}</option>

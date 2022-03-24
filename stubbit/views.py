@@ -40,7 +40,7 @@ def home1(request):
         requestType = 'home1'
         
         try:        
-            stubs = all_stubs.filter(InProcess=True, RecipientUserFileID=loggedInUser.pk)     
+            stubs = all_stubs.filter(InProcess=True, RecipientUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')
         except:
             stubs = None
 
@@ -57,7 +57,7 @@ def home2(request):
         requestType = 'home2'
         
         try:        
-            stubs = all_stubs.filter(RecipientUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')       
+            stubs = all_stubs.filter(InProcess=False, RecipientUserFileID=loggedInUser.pk).order_by('-PriorityInQueue')       
         except:
             stubs = None
 

@@ -12,7 +12,8 @@
   border: 0;
   padding: 0;
   margin: 0;
-  height: 100%;
+  height: 120%;
+  width: 120%;
 }
  
 body {
@@ -29,6 +30,7 @@ form {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
   font-family: lato;
   position: relative;
+  left: -325px;
   color: #333;
   border-radius: 10px;
   margin-top: 10%;
@@ -75,6 +77,12 @@ form .text{
   font-family: inherit;
   margin-left: 20px;
   font-size: 1.45em;
+}
+form .title{
+  position: relative;
+  font-family: inherit;
+  margin-left: 20px;
+  font-size: 2.25em;
 }
 form button {
   position: relative;
@@ -130,9 +138,9 @@ form button:hover {
 
 {% endfor %}
 <label>Title:</label>
-<div class="text">{{ stub.Title }}{{Views.StubTitle}}</div>
+<div class="title">{{ stub.Title }}{{Views.StubTitle}}</div>
 <label>Overview:</label>
-<div class="text">{{ stub.Overview }}</div>
+<div class="text"><textarea readonly style="width: 790px; height: 200px; border: solid 1.5px">{{ stub.Overview }}</textarea></div>
 <div class="row">
   <label align="left" class="column" style="position: relative; left: 2%;">Category:</label>
   <label align="left" class="column" style="position: relative; left: 20%;">Urgency:</label>
@@ -148,10 +156,10 @@ form button:hover {
   <input type="textbox" name="estcompletiontimeunits" placeholder="{{stub.EstimatedCompletionTimeUOM}}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 0.25%; width:20%;"></input>
   <input type="textbox" name="priority" placeholder="{{ stub.PriorityInQueue }}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 18.5%;"></input>
 </div> 
-<label>Developer:</label>
+<label>Recipient:</label>
 <div class="text">{{ stub.RecipientUserFileID.FirstName }} {{ stub.RecipientUserFileID.LastName }}</div>
 <div class="row">
-  <label align="left"style="position: relative; left: 2%; padding-right: 35%;"class="column">InProcess:</label>
+  <label align="left"style="position: relative; left: 2%;  width: 35%; padding-right: 25%;"class="column">In Process:</label>
   {% if stub.InProcess == False %}
   <input type="checkbox" name="inProcess" align="center"class= "column" style="width: 25px; height: 25px; background-color: #bd2828; position: relative; right: 18%; top: 25px;" value = "True">&nbsp;</input> 
   {% else %}

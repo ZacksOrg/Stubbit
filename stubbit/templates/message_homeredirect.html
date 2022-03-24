@@ -72,7 +72,7 @@ form .help {
 form .text{
   position: relative;
   font-family: inherit;
-  margin-left: 20px;
+  font-size: 1.75em;
 }
 form button {
   position: relative;
@@ -123,13 +123,15 @@ form button:hover {
   </header>
   {% for message in messages %}
 
-    <div class="alert {{message.tags}}"style="justify-content: center;">
+    <div style="font-size: 1.35em; font-weight: 525;" class="alert {{message.tags}}"style="justify-content: center;">
       <a class="close" href="#" data-dismiss="alert"></a>
         {{ message }}
     </div>
 
   {% endfor %}
-  <div class="text"><a href = "/"><u>Continue to Stubbit</u></a><a style="color: black"></a></div>
+  <div class="text"><a>&nbsp;<u></u></a><a style="color: black"></a></div>
+  <div class="text"><a href = "/"><u><center>Continue to Stubbit</center></u></a><a style="color: black"></a></div>
+  <div class="text"><a>&nbsp;<u></u></a><a style="color: black"></a></div>
 </form>
 
 
