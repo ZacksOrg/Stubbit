@@ -22,5 +22,6 @@ urlpatterns = [
     path("view/", views.view, name="view"),
     path("updatesuccess/", views.updatesuccess, name="updatesuccess"),
     path("deletesuccess/", views.deletesuccess, name="deletesuccess"),
+    path("deleteconfirmation/", views.deleteconfirmation, name="deleteconfirmation"),
     path("about/", views.about, name="about")
 ]
