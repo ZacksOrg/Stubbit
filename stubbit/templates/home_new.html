@@ -157,7 +157,7 @@ span::after {
         background-color: #0064bd;
           
         }
-        .sidebar {
+        /*.sidebar {
             margin: 0;
             padding: 0;
             width: 200px;
@@ -190,7 +190,7 @@ span::after {
                 .sidebar a:hover:not(.active) {
                     background-color: #64a8db;
                     color: white;
-                }
+                }*/
 
         div.content {
 
@@ -202,7 +202,7 @@ span::after {
             /*margin-left: 200px;
             margin-top: 0px;
             padding: 1px 16px;*/
-            margin-left: 300px;
+            margin-left: 150px;
         }
 
         div.queue {
@@ -400,6 +400,19 @@ span::after {
                 background-color: #2e52c8;
             }*/
 
+        form.PageForm {
+            background: white;
+            width: 80%;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+            position: relative;
+            color: #333;
+            border-radius: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 110px;
+            margin-bottom: 50px;
+        }
+
     </style>
     <body>
         <div>        
@@ -422,6 +435,7 @@ span::after {
         <a class="menubutton" href="about">About</a>
         <a class="menubutton" href="stubbitlogout/">Sign Out</a>
     </div>-->
+        <form class="PageForm">
         <div class="content">
             <div class="queue">
                 <div class="column">
@@ -476,5 +490,6 @@ span::after {
                 {% endfor %}
             </table>
         </div>
+        </form>
     </body>
 </html>
