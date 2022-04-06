@@ -335,5 +335,11 @@ def deletesuccess(request):
     messages.success(request, "Stub was successfully deleted!")
     return render(request, 'deletesuccess.html')
 
+def deleteconfirmation(request):
+    global StubId
+    stub = Stub.objects.get(id=StubId)
+    messages.warning(request, "Are you sure you want to delete the stub?")
+    return render(request, 'deleteconfirmation.html')
+
 def about(request):
     return render(request, 'about.html')

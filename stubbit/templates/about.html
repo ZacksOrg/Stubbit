@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     {% load static %}
     <title>About Page</title>
-    
+
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
-            background-color: #d5eced;
+            background-color: rgb(184, 197, 207);
         }
 
         html {
@@ -32,13 +32,29 @@
 
         a {
             color: white;
-            float: left;
-            margin-right: inherit;
+            float: right;
+            padding-top: 60px;
+            text-decoration: none;
         }
 
         a:hover {
-            color: grey;
+            text-decoration: underline;
+            
         }
+
+        form {
+            background: white;
+            width: 80%;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+            position: relative;
+            color: #333;
+            border-radius: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
 
         img {
             display: block;
@@ -54,7 +70,6 @@
             border-color: slategray;
             background: #eee;
             margin: auto;
-            
         }
 
         .column {
@@ -82,10 +97,11 @@
         .about-section {
             padding: 6px;
             text-align: center;
-            background-color: #146bb7;
+            background-color: rgb(77 142 241);
             color: white;
             font-size: x-large;
-
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
 
         .about-row {
@@ -116,18 +132,18 @@
                 display: block;
             }
         }
-
-
     </style>
 </head>
 <body>
-    <div class="about-section">
-        <a href="/">Back</a>
-        <h1>Stubbit</h1>
-        <p style="font-style: italic; text-align: center; font-size: smaller;">Redesigning Collaboration One Stub At A Time</p>
-    </div>
+    <form>
+        <div class="about-section">
+            <div align="left" style="position: relative; left: 0px; top: 22px; float:left;"><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:120px;height:120px;"></div>
+            <a href="/">Back</a>
+            <h1>Stubbit</h1>
+            <p style="font-style: italic; text-align: center; font-size: smaller; padding-right: 20px;">Redesigning Collaboration One Stub At A Time</p>
+        </div>
         <div class="about-row">
-            <h2>What Is Stubbit?</h2>
+            <h2>What is Stubbit?</h2>
             <p style="line-height: 1.6;">
                 Introducing Stubbit: the revolutionizing website application that uniquely blends bug tracker software and community communication software into a transparent, inter-organization request application.
                 Stubbit hopes to not only replace the current bug tracking systems within organizations, but also the countless emails that are sent back and forth detailing requests like issues, bugs, improvements, and more–
@@ -135,10 +151,10 @@
             </p>
             <div class="row">
                 <div class="pic-column">
-                    <img class="stubbit-pics" src="{% static 'images/CreateStub.png' %}" style="width: 766px; height: 769px;" />
+                    <img class="stubbit-pics" src="{% static 'images/CreateStub.png' %}" style="width: 766px; height: 769px; border: solid; border-color: black; border-width:5px;" />
                 </div>
                 <div class="pic-column">
-                    <img class="stubbit-pics" src="{% static 'images/StubPic.png' %}" style="position: relative; left: -24px; width: 920px; height: 241px;"/>
+                    <img class="stubbit-pics" src="{% static 'images/StubPic.png' %}" style="position: relative; left: -24px; width: 920px; height: 241px; border: solid; border-color: black; border-width: 5px;"/>
                 </div>
                 </div>
                 <p style="line-height: 1.6;">
@@ -215,5 +231,6 @@
                 </div>
             </div>
     </div>
+    </form>
 </body>
 </html>

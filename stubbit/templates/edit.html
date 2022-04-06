@@ -13,7 +13,7 @@
   padding: 0;
   margin: 0;
   height: 120%;
-  width: 120%;
+  width: 100%;
 }
  
 body {
@@ -30,7 +30,7 @@ form {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
   font-family: lato;
   position: relative;
-  left: -325px;
+
   color: #333;
   border-radius: 10px;
   margin-top: 10%;
@@ -140,7 +140,7 @@ form button:hover {
 <label>Title:</label>
 <div class="title">{{ stub.Title }}{{Views.StubTitle}}</div>
 <label>Overview:</label>
-<div class="text"><textarea readonly style="width: 790px; height: 200px; border: solid 1.5px">{{ stub.Overview }}</textarea></div>
+<div class="text"><textarea readonly style="width: 97%; height: 200px; border: solid 1.5px; margin-right: 1%">{{ stub.Overview }}</textarea></div>
 <div class="row">
   <label align="left" class="column" style="position: relative; left: 2%;">Category:</label>
   <label align="left" class="column" style="position: relative; left: 20%;">Urgency:</label>
@@ -154,7 +154,19 @@ form button:hover {
   <label align="left" class="column" style="position: relative; left: 20%; padding-right:60%">Priority</label>
   <input type="textbox" name="estcompletiontime" placeholder="{{ stub.EstimatedCompletionTime }}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 2%; width:12%"></input>
   <input type="textbox" name="estcompletiontimeunits" placeholder="{{stub.EstimatedCompletionTimeUOM}}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 0.25%; width:20%;"></input>
-  <input type="textbox" name="priority" placeholder="{{ stub.PriorityInQueue }}"align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 18.5%;"></input>
+  <select name="priority" align="left" class="column" style="font-family: inherit;margin-left: 20px;font-size: 1.45em;position: relative; left: 18.5%;">
+    <option value="{{ stub.PriorityInQueue }}" hidden>{{ stub.PriorityInQueue }}</option>
+    <option value="1.0">1.0</option>
+    <option value="2.0">2.0</option>
+    <option value="3.0">3.0</option>
+    <option value="4.0">4.0</option>
+    <option value="5.0">5.0</option>
+    <option value="6.0">6.0</option>
+    <option value="7.0">7.0</option>
+    <option value="8.0">8.0</option>
+    <option value="9.0">9.0</option>
+    <option value="10.0">10.0</option>
+  </select>
 </div> 
 <label>Recipient:</label>
 <div class="text">{{ stub.RecipientUserFileID.FirstName }} {{ stub.RecipientUserFileID.LastName }}</div>
@@ -176,7 +188,7 @@ form button:hover {
 </div>
 
 <button type="submit" formaction="/updatesuccess/">Update Stub</button>
-<button type="submit" formaction="/deletesuccess/">Delete Stub</button>
+<button type="submit" formaction="/deleteconfirmation/">Delete Stub</button>
 <div><a>&nbsp;</a></div>
 </form>
 </body>
