@@ -437,7 +437,8 @@ span::after {
         <a class="menubutton" href="about">About</a>
         <a class="menubutton" href="stubbitlogout/">Sign Out</a>
     </div>-->
-        <form class="PageForm">
+        <form class="PageForm" method="post">
+            {% csrf_token %}
             <div>
                 <ul class="navbar">
                     <li><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></li>
@@ -490,11 +491,9 @@ span::after {
                                 <div class="EstimatedCompletion"><div class="divColumn">{{i.EstimatedCompletionTime}}</div><div class="divColumn">{{i.EstimatedCompletionTimeUOM}}</div></div>
                                 <div class="IsInProcess">{{i.InProcess}}</div>
                                 <div class="Priority">{{i.PriorityInQueue}}</div>
-                                <form method="post" action="/view/">
-                                    {% csrf_token %}
+
                                     <input hidden="True" type="text" name="stubId" value="{{i.id}}" />
-                                    <button type="submit" class="stubbtn">View Stub</button>
-                                </form>
+                                    <button type="submit" formaction = "/view/"class="stubbtn">View Stub</button>
                             </div>
                         </td>
                     </tr>
