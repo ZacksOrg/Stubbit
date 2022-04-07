@@ -172,11 +172,11 @@ def loginwelcome(request):
 
 def addOrganizationSuccess(request, context={}):
     messages.success(request, "Adding that Organization was successful! The generated license key for the organization is: " + License.objects.last().LicenseContent)
-    return render(request, 'message_homeredirect.html')
+    return render(request, 'addorganizationsuccess.html')
 
 def addStubSuccess(request):
     messages.success(request, "The Create Stub Operation was successful!")
-    return render(request, 'message_homeredirect.html')
+    return render(request, 'createstubsuccess.html')
 
 def profile(request):
     if (Backend.GetLoggedInUserObj(request) == None):
@@ -193,7 +193,7 @@ def AddOrganization(request):
         form = OrganizationForm()
         if request.method == 'POST':
             form = OrganizationForm(request.POST)
-            if form.is_valid():
+            if form.is_valid(): 
                 form.save()
                 newLicense = Backend.AddLicenseForMostRecentOrganizationRow(request)
                 return redirect('/addOrganization_message_homeredirect/')

@@ -8,10 +8,178 @@
 
 
 
+<<<<<<< HEAD
             h1 {
                 padding: 40px;
                 text-align: center;
                 font-size: 1.5em;
+=======
+        h1 {padding: 40px; text-align: center; font-size: 1.5em;}
+
+li a {text-decoration : none; color : #2d2f31; font-size: 1.2em; font-weight: 550;}
+
+
+nav {  
+  width : 700px; 
+  background: #79a7ed;
+  margin : 150px auto; 
+  position: relative;
+  bottom: 0px;
+  left: -25px;
+  font-family: "Lato", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+span {
+  padding : 50px;
+  background : #4d8ef1; 
+  color : white;
+  font-family: "Lato", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  cursor : pointer;
+  display: block;
+}
+
+span::after {
+  float: right;
+  right: 10%;
+  content: "+";
+}
+
+.slide {
+  clear:both;
+  width:100%;
+  height:0px;
+  overflow: hidden;
+  text-align: center;
+  transition: height .4s ease;
+}
+
+.slide li {padding : 30px;}
+
+#touch {position: absolute; opacity: 0; height: 0px;}    
+
+#touch:checked + .slide {height: 300px;} 
+
+
+
+
+
+        body {
+            margin: 0;
+            font-family: "Lato", sans-serif;
+            background-color: #d6dffb;
+          
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+            margin-left: -5px;
+            margin-right: -5px;
+            
+        }
+
+        .column {
+            flex: 50%;
+            padding: 10px;
+        }
+
+        table {
+            transform: scale(0.97)
+        }
+
+        .quetbl {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .td1 {
+            border: solid 1px #000;
+            padding: 15px;
+            background-color: rgb(77 142 241);
+            color: white;
+        }
+        .td2 {
+            padding: 0px;
+            color: white;
+        }
+
+
+
+        tr:hover {
+            
+        }
+
+        button.stubbtn {
+          background-color: #0095ff;
+          border: 2px solid black;
+          border-radius: 3px;
+          box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+          box-sizing: border-box;
+          color: #fff;
+          cursor: pointer;
+          display: inline-block;
+          font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+          font-size: 22px;
+          font-weight: 550;
+          line-height: 1.15385;
+          margin: 0;
+          outline: none;
+          padding: 8px .8em;
+          position: relative;
+          text-align: center;
+          text-decoration: none;
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
+          vertical-align: baseline;
+          white-space: nowrap;
+          position: absolute;
+          height: 55px;
+          width: 180px;
+          bottom: 138px;
+          left: -38px;
+          -webkit-transform: rotate(270deg);
+        }
+
+        button.stubbtn:hover,
+        button.stubbtn:focus {
+          background-color: #07c;
+        }
+
+        button.stubbtn:focus {
+          box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+        }
+
+        button.stubbtn:active {
+        font-size: 30px;
+        font-weight: 600;
+        background-color: #0064bd;
+          
+        }
+        /*.sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: rgb(77 142 241);
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+
+            .sidebar img {
+                display:block;
+                margin:auto;
+
+>>>>>>> 4a47c07f99014d73dacea28dd1deb6871486f55f
             }
 
             li a {
@@ -340,6 +508,7 @@
                 color: black
             }
 
+<<<<<<< HEAD
             .IsInProcess {
                 position: absolute;
                 bottom: 39px;
@@ -386,15 +555,58 @@
             font-size: 18px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             margin-top: 0;
+=======
+.IsInProcess {
+    position: absolute;
+    bottom: 39px;
+    left: 761px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+.Priority {
+    position: absolute;
+    bottom: 17px;
+    left: 1198px;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black
+}
+.menubutton {
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    border: 2px solid white;
+}
+.stubtable {
+    position: relative;
+    bottom: 0px;
+    left: -15px;
+    
+}
+.divColumn {
+    display: table-cell;
+    padding: 0px 2px;
+    
+}
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+>>>>>>> 4a47c07f99014d73dacea28dd1deb6871486f55f
             overflow: hidden;
             padding: 0;
             background-color: rgb(77 142 241);
             position: fixed;
             top: 0;
-            width: 80%;
+            width: 100%;
             z-index: 1;
         }
 
+<<<<<<< HEAD
                 .navbar li {
                     float: left;
                     border-right: 1px solid #bbb;
@@ -418,14 +630,56 @@
                         background-color: rgb(77 142 241);
                         padding: 3px 25px;
                     }
+=======
+            .navbar li {
+                float: left;
+                border-right: 1px solid #bbb;
+                /*width: 16.666%*/
+            }
+
+            .navbar li:last-child {
+                border-right: none;
+            }
+
+                .navbar li a {
+                    display: block;
+                    color: white;
+                    text-align: center;
+                    padding: 30px;                   
+                    text-decoration: none;
+                }
+
+                .navbar li:first-child {
+                    background-color: rgb(77 142 241);
+                    padding: 0px 12px;
+                }
+>>>>>>> 4a47c07f99014d73dacea28dd1deb6871486f55f
 
                     .navbar li a:hover {
                         background-color: #0095ff;
                     }
 
             /*.navbar .active {
+<<<<<<< HEAD
                     background-color: #2e52c8;
                 }*/
+=======
+                background-color: #2e52c8;
+            }*/
+
+        form.PageForm {
+            background: white;
+            width: 80%;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+            position: relative;
+            color: #333;
+            border-radius: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 110px;
+            margin-bottom: 50px;
+        }
+>>>>>>> 4a47c07f99014d73dacea28dd1deb6871486f55f
 
             form.PageForm {
                 background: white;
@@ -442,7 +696,11 @@
             }
     </style>
     <body>
+<<<<<<< HEAD
         <!--<div>
+=======
+        <div>        
+>>>>>>> 4a47c07f99014d73dacea28dd1deb6871486f55f
             <ul class="navbar">
                 <li><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:80px;height:80px;"></li>
                 <li><a class="active" href="/">Home</a></li>
@@ -452,8 +710,9 @@
                 <li><a href="about">About</a></li>
                 <li style="float:right"><a href="stubbitlogout/">Sign Out</a></li>
             </ul>
-        </div>-->
+        </div>
         <!--<div class="sidebar">
+<<<<<<< HEAD
             <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:175px;height:175px;">
             <a class="menubutton" href="/">Home</a>
             <a class="menubutton" href="profile">Profile</a>
@@ -463,6 +722,19 @@
             <a class="menubutton" href="stubbitlogout/">Sign Out</a>
         </div>-->
         <form class="PageForm">
+=======
+        <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:175px;height:175px;">
+        <a class="menubutton" href="/">Home</a>
+        <a class="menubutton" href="profile">Profile</a>
+        <a class="menubutton" href="organization">Add Organization</a>
+        <a class="menubutton" href="createstub">Create Stub</a>
+        <a class="menubutton" href="about">About</a>
+        <a class="menubutton" href="stubbitlogout/">Sign Out</a>
+    </div>-->
+<<<<<<< HEAD
+        <form class="PageForm" method="post">
+            {% csrf_token %}
+>>>>>>> 4a47c07f99014d73dacea28dd1deb6871486f55f
             <div>
                 <ul class="navbar">
                     <li><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></li>
@@ -515,19 +787,67 @@
                                 <div class="EstimatedCompletion"><div class="divColumn">{{i.EstimatedCompletionTime}}</div><div class="divColumn">{{i.EstimatedCompletionTimeUOM}}</div></div>
                                 <div class="IsInProcess">{{i.InProcess}}</div>
                                 <div class="Priority">{{i.PriorityInQueue}}</div>
-                                <form method="post" action="/view/">
-                                    {% csrf_token %}
+
                                     <input hidden="True" type="text" name="stubId" value="{{i.id}}" />
-                                    <button type="submit" class="stubbtn">View Stub</button>
-                                </form>
+                                    <button type="submit" formaction = "/view/"class="stubbtn">View Stub</button>
                             </div>
+=======
+        <form class="PageForm">
+        <div class="content">
+            <div class="queue">
+                <div class="column">
+                    <nav>
+                        <label for="touch"><span>Which Collection Of Stubs?</span></label>
+                        <input type="checkbox" id="touch">
+                        <ul class="slide">
+                            <li><a href="home1">Stubs In Process</a></li>
+                            <li><a href="home2">Received Stubs</a></li>
+                            <li><a href="home3">Sent Stubs</a></li>
+                        </ul>
+                    </nav>
+                    <tr style="padding: 10px;" class="">
+                        <td class="td2">
+                            <a>&nbsp;<a />
+>>>>>>> parent of 7968d42 (Update)
                         </td>
                     </tr>
-                    <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
-                    <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
-                    {% endfor %}
-                </table>
+                </div>
             </div>
+        </div>
+        <div class="stubtablediv">
+            <table cellspacing="0" class="stubtable">
+                {% for i in stubs %}
+                <tr style="padding: 10px;" class="">
+                    <td class="td2">
+                        <div id="test" class="container">
+                            {% if i.Urgency == "Immediate" %} <img style="display: block;" src="{% static 'images/Stub5.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "Highly Important" %} <img style="display: block;" src="{% static 'images/Stub4.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "Important" %} <img style="display: block;" src="{% static 'images/Stub3.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "Somewhat Important" %} <img style="display: block;" src="{% static 'images/Stub2.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "When You Have Time" %} <img style="display: block;" src="{% static 'images/Stub1.png' %}" width="1250"> {% endif %}
+                            <div class="Title">{{i.Title}}</div>
+                            <div class="Category">{{i.Category}}</div>
+                            <div class="Urgency">{{i.Urgency}}</div>
+                            <div class="Domain">{{i.Domain}}</div>
+                            <div class="Name">{{i.RecipientUserFileID.Name}}</div>
+                            <div class="CreationDate">{{i.CreationDate}}</div>
+                            <div class="StartDate">{{i.StartDate}}</div>
+                            <div class="EstimatedCompletion"><div class="divColumn">{{i.EstimatedCompletionTime}}</div><div class="divColumn">{{i.EstimatedCompletionTimeUOM}}</div></div>
+                            <div class="IsInProcess">{{i.InProcess}}</div>
+                            <div class="Priority">{{i.PriorityInQueue}}</div>
+                            <form method="post" action="/view/">
+                                {% csrf_token %}
+                                <input hidden="True" type="text" name="stubId" value="{{i.id}}" />
+                                <button type="submit" class="stubbtn">View Stub</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
+                <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
+                {% endfor %}
+            </table>
+        </div>
         </form>
     </body>
 </head>

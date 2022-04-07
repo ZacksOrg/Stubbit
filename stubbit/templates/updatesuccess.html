@@ -118,19 +118,19 @@ form button:hover {
   <header>
     <div class="row">
       <div align="left" class="column" style="position: relative; left: 0px; top: 0px;"><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></div>  
-      <div align="center" class="column" style="font-size: 1.2em; position: relative; left: 0px; top: 15px;">Message</div>  
+      <div align="center" class="column" style="font-size: 1.2em; position: relative; left: 0px; top: 15px;">Update Message</div>  
     </div>
   </header>
   {% for message in messages %}
-
-    <div style="font-size: 1.35em; font-weight: 525;" class="alert {{message.tags}}"style="justify-content: center;">
-      <a class="close"  href="#" data-dismiss="alert"></a>
-        {{ message }}
-    </div>
+  
+  <div style="font-size: 1.35em; font-weight: 525;" class="alert {{message.tags}}"style="justify-content: center;">
+    <a class="close" href="#" data-dismiss="alert"></a>
+      {{ message }}
+  </div>
 
   {% endfor %}
   <div class="text"><a>&nbsp;<u></u></a><a style="color: black"></a></div>
-  <div class="text"><a href = "/view/"><u><center>Continue to View Stub</center></u></a><a style="color: black"></a></div>
+  <div class="text"><a href = "/view/"><u><center>Continue Back to View Stub</center></u></a><a style="color: black"></a></div>
   <div class="text"><a>&nbsp;<u></u></a><a style="color: black"></a></div>
 </form>
 

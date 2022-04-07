@@ -136,11 +136,11 @@
         {% csrf_token %}
         <header>
             <div class="row">
-                <div align="left" class="column" style="position: relative; left: 0px; top: 16px;"><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></div>
-                <div align="center" class="column" style="font-size: 1.4em; position: relative; left: 0px; top: 0px;">Add Organization</div>
-                <div align="right" class="column" style="font-size: .7em; position: relative; left: 0px; top: 50px"><a href="/" style="color: white;">Back</a></div>
+              <div align="left" class="column" style="position: relative; left: 0px; top: 0px;"><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:100px;height:100px;"></div>  
+              <div align="center" class="column" style="font-size: 1.4em; position: relative; left: 0px; top: 15px;">Add Organization</div>  
+              <div align="right" class="column" style="position: relative; left: 0px; top: 37px"><a href="/"style="color: white;">Back</a>  </div>
             </div>
-        </header>
+            </header>
         {{form}}
     <button type="submit">Add</button>
     </form>
