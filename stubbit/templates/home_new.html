@@ -64,7 +64,7 @@ span::after {
         body {
             margin: 0;
             font-family: "Lato", sans-serif;
-            background-color: #b8c5cf;
+            background-color: #d6dffb;
           
         }
 
@@ -361,22 +361,20 @@ span::after {
 
         .navbar {
             list-style-type: none;
-            font-size: 18px;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             overflow: hidden;
             background-color: rgb(77 142 241);
             position: fixed;
             top: 0;
-            width: 80%;
+            width: 100%;
             z-index: 1;
         }
 
             .navbar li {
                 float: left;
                 border-right: 1px solid #bbb;
-                /*width: 14.25%;*/
+                /*width: 16.666%*/
             }
 
             .navbar li:last-child {
@@ -387,13 +385,13 @@ span::after {
                     display: block;
                     color: white;
                     text-align: center;
-                    padding: 43px;                   
+                    padding: 30px;                   
                     text-decoration: none;
                 }
 
                 .navbar li:first-child {
                     background-color: rgb(77 142 241);
-                    padding: 3px 25px;
+                    padding: 0px 12px;
                 }
 
                     .navbar li a:hover {
@@ -413,13 +411,13 @@ span::after {
             border-radius: 10px;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 0px;
+            margin-top: 110px;
             margin-bottom: 50px;
         }
 
     </style>
     <body>
-        <!--<div>        
+        <div>        
             <ul class="navbar">
                 <li><img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:80px;height:80px;"></li>
                 <li><a class="active" href="/">Home</a></li>
@@ -429,7 +427,7 @@ span::after {
                 <li><a href="about">About</a></li>
                 <li style="float:right"><a href="stubbitlogout/">Sign Out</a></li>
             </ul>
-        </div>-->
+        </div>
         <!--<div class="sidebar">
         <img src="{% static 'images/StubbitImg.png' %}" vertical alt="My image" style="width:175px;height:175px;">
         <a class="menubutton" href="/">Home</a>
@@ -439,6 +437,7 @@ span::after {
         <a class="menubutton" href="about">About</a>
         <a class="menubutton" href="stubbitlogout/">Sign Out</a>
     </div>-->
+<<<<<<< HEAD
         <form class="PageForm" method="post">
             {% csrf_token %}
             <div>
@@ -497,13 +496,63 @@ span::after {
                                     <input hidden="True" type="text" name="stubId" value="{{i.id}}" />
                                     <button type="submit" formaction = "/view/"class="stubbtn">View Stub</button>
                             </div>
+=======
+        <form class="PageForm">
+        <div class="content">
+            <div class="queue">
+                <div class="column">
+                    <nav>
+                        <label for="touch"><span>Which Collection Of Stubs?</span></label>
+                        <input type="checkbox" id="touch">
+                        <ul class="slide">
+                            <li><a href="home1">Stubs In Process</a></li>
+                            <li><a href="home2">Received Stubs</a></li>
+                            <li><a href="home3">Sent Stubs</a></li>
+                        </ul>
+                    </nav>
+                    <tr style="padding: 10px;" class="">
+                        <td class="td2">
+                            <a>&nbsp;<a />
+>>>>>>> parent of 7968d42 (Update)
                         </td>
                     </tr>
-                    <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
-                    <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
-                    {% endfor %}
-                </table>
+                </div>
             </div>
+        </div>
+        <div class="stubtablediv">
+            <table cellspacing="0" class="stubtable">
+                {% for i in stubs %}
+                <tr style="padding: 10px;" class="">
+                    <td class="td2">
+                        <div id="test" class="container">
+                            {% if i.Urgency == "Immediate" %} <img style="display: block;" src="{% static 'images/Stub5.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "Highly Important" %} <img style="display: block;" src="{% static 'images/Stub4.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "Important" %} <img style="display: block;" src="{% static 'images/Stub3.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "Somewhat Important" %} <img style="display: block;" src="{% static 'images/Stub2.png' %}" width="1250"> {% endif %}
+                            {% if i.Urgency == "When You Have Time" %} <img style="display: block;" src="{% static 'images/Stub1.png' %}" width="1250"> {% endif %}
+                            <div class="Title">{{i.Title}}</div>
+                            <div class="Category">{{i.Category}}</div>
+                            <div class="Urgency">{{i.Urgency}}</div>
+                            <div class="Domain">{{i.Domain}}</div>
+                            <div class="Name">{{i.RecipientUserFileID.Name}}</div>
+                            <div class="CreationDate">{{i.CreationDate}}</div>
+                            <div class="StartDate">{{i.StartDate}}</div>
+                            <div class="EstimatedCompletion"><div class="divColumn">{{i.EstimatedCompletionTime}}</div><div class="divColumn">{{i.EstimatedCompletionTimeUOM}}</div></div>
+                            <div class="IsInProcess">{{i.InProcess}}</div>
+                            <div class="Priority">{{i.PriorityInQueue}}</div>
+                            <form method="post" action="/view/">
+                                {% csrf_token %}
+                                <input hidden="True" type="text" name="stubId" value="{{i.id}}" />
+                                <button type="submit" class="stubbtn">View Stub</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
+                <tr style="padding: 10px;" class=""><td class="td2"><a>&nbsp;</a></td></tr>
+                {% endfor %}
+            </table>
+        </div>
         </form>
     </body>
 </html>
