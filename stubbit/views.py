@@ -14,6 +14,8 @@ import time
 from django.utils import timezone
 import datetime
 
+StubId = ''
+UserId = ''
 def refresh(request):
     Backend.DatabaseRefreshWithTestData()
     return HttpResponse("Database Refresh Complete", content_type="text/plain")
@@ -185,6 +187,53 @@ def profile(request):
         loggedInUser = Backend.GetLoggedInUserObj(request)
         context = {'loggedInUser':loggedInUser}
         return render(request,'profile.html', context)
+
+def profileedit(request):
+    if (Backend.GetLoggedInUserObj(request) == None):
+        return redirect('/login/')
+    else:
+        user = Backend.GetLoggedInUserObj(request)
+        context = {'user':user}
+        return render(request, 'profileedit.html', context)
+
+def profilesuccess(request):
+    user = Backend.GetLoggedInUserObj(request)
+    userPassword = UserPass.objects.get(UserFileID=user.pk)
+    if request.method == 'POST' :
+        username = request.POST['username']
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        email = request.POST['email_address']
+        password1 = request.POST['password1']
+        department = request.POST['department']
+        if not Backend.Check_UserName_Availability(username):
+            messages.error(request, "Username already taken")
+        else:
+            if password1 == userPassword.EncryptedPassword:
+                if username == '':
+                    username = user.Username
+                if firstname == '':
+                    firstname = user.FirstName
+                if lastname == '':
+                    lastname = user.LastName
+                if email == '':
+                    email = user.Email
+                if department == '':
+                    department = user.Department
+                try:
+                    UserFile.objects.filter(id=user.id).update(Username = username)
+                except:
+                    messages.error(request, "Username Already Taken!")
+                    return redirect ("/profileedit/")
+                UserFile.objects.filter(id=user.id).update(FirstName = firstname)
+                UserFile.objects.filter(id=user.id).update(LastName = lastname)
+                UserFile.objects.filter(id=user.id).update(Email = email)
+                UserFile.objects.filter(id=user.id).update(Department = department)
+            else:
+                messages.error(request, "You Password Was Incorrect! Please Try Again!")
+                return redirect('/profileedit/')
+            messages.success(request, "Profile was successfully updated!")
+    return render(request, 'profilesuccess.html')
 
 def AddOrganization(request):
     if (Backend.GetLoggedInUserObj(request) == None):
